@@ -26,9 +26,12 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with optim
 Download and run the "Windows 10 Mining Tweaks.bat" file.
 
 ## Donations
+
 ETH
 0x7013275311fc37ccc1e40193D75086293eCb43A4
+
 Monero (XMR)
 41s1ALMHsW8EiYU31NCT3nWJqsShgZJXQGwXUsTbb8TdfDtiEfPrjeCiqDD3pZ5q2uAsgPM6ykJ3DYDUsZk2LJ7xFmbWaLS
+
 AEON
 WmssXd9iiPCjjhfVyqYvPzhBuPKkZ5wkVXP5q8L7aYxfPJG5Z8nLyLJXUzxMeuvna9dCEBAmqBzCRWezF6AQqUS51EDJtjAYL
