@@ -23,7 +23,8 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with optim
 [![Github All Releases](https://img.shields.io/github/downloads/DeadManWalkingTO/Windows-10-Mining-Tweaks/total.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/releases)
 
 ## Usage
-Download, unzip and run the "Windows-10-Mining-Tweaks.bat" file.
+Download, Unzip and Run as Administrator the "Windows-10-Mining-Tweaks.bat" file.
+Select the tweaks that you want by choosing Y/N.
 
 ## Donations
 
