@@ -29,7 +29,6 @@ Select the tweaks that you want by choosing Y/N.
 ## Donations
 
 ETH
-
 0x7013275311fc37ccc1e40193D75086293eCb43A4
 
 Monero (XMR)
