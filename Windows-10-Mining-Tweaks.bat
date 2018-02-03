@@ -2,7 +2,7 @@ REM ========== Start ==========
 CLS
 @ECHO OFF
 COLOR 1F
-SET V=3.0.6
+SET V=3.0.7
 TITLE Windows 10 Mining Tweaks (x64) Version %V% by: DeadManWalking
 ECHO ###############################################################################
 ECHO #                                                                             #
