@@ -2,7 +2,7 @@ REM ========== Start ==========
 CLS
 @ECHO OFF
 COLOR 1F
-SET V=3.0.3
+SET V=3.0.6
 TITLE Windows 10 Mining Tweaks (x64) Version %V% by: DeadManWalking
 ECHO ###############################################################################
 ECHO #                                                                             #
@@ -203,49 +203,49 @@ if /i "%services%" neq "n" if /i "%services%" neq "y" goto servstart
 set /p serv01="Disable Connected User Experiences and Telemetry (To turn off Telemetry and Data Collection)? y/n: "
 if '%serv01%' == 'n' goto serv02start
 if /i "%serv01%" neq "y" goto serv01start
-sc config DiagTrack start= Manual > NUL 2>&1
+sc config DiagTrack start= Disabled > NUL 2>&1
 
 :serv02start
 set /p serv02="Disable Diagnostic Policy Service? y/n: "
 if '%serv02%' == 'n' goto serv03start
 if /i "%serv02%" neq "y" goto serv02start
-sc config DPS start= Manual > NUL 2>&1
+sc config DPS start= Disabled > NUL 2>&1
 
 :serv03start
 set /p serv03="Disable Distributed Link Tracking Client (If your computer is not connected to any network)? y/n: "
 if '%serv03%' == 'n' goto serv04start
 if /i "%serv03%" neq "y" goto serv03start
-sc config TrkWks start= Manual > NUL 2>&1
+sc config TrkWks start= Disabled > NUL 2>&1
 
 :serv04start
 set /p serv04="Disable WAP Push Message Routing Service (To turn off Telemetry and Data Collection)? y/n: "
 if '%serv04%' == 'n' goto serv05start
 if /i "%serv04%" neq "y" goto serv04start
-sc config dmwappushservice start= Manual > NUL 2>&1
+sc config dmwappushservice start= Disabled > NUL 2>&1
 
 :serv05start
 set /p serv05="Disable Downloaded Maps Manager (If you don't use Maps app)? y/n: "
 if '%serv05%' == 'n' goto serv06start
 if /i "%serv05%" neq "y" goto serv05start
-sc config MapsBroker start= Manual > NUL 2>&1
+sc config MapsBroker start= Disabled > NUL 2>&1
 
 :serv06start
 set /p serv06="Disable IP Helper (If you don't use IPv6 connection)? y/n: "
 if '%serv06%' == 'n' goto serv07start
 if /i "%serv06%" neq "y" goto serv06start
-sc config iphlpsvc start= Manual > NUL 2>&1 
+sc config iphlpsvc start= Disabled > NUL 2>&1 
 
 :serv07start
 set /p serv07="Disable Program Compatibility Assistant Service? y/n: "
 if '%serv07%' == 'n' goto serv08start
 if /i "%serv07%" neq "y" goto serv07start
-sc config PcaSvc start= Manual > NUL 2>&1 
+sc config PcaSvc start= Disabled > NUL 2>&1 
 	
 :serv08start
 set /p serv08="Disable Print Spooler (If you don't have a printer)? y/n: "
 if '%serv08%' == 'n' goto serv09start
 if /i "%serv08%" neq "y" goto serv08start
-sc config Spooler start= Manual > NUL 2>&1 
+sc config Spooler start= Disabled > NUL 2>&1 
 
 :serv09start
 set /p serv09="Disable Remote Registry (You can set it to DISABLED for Security purposes)? y/n: "
@@ -257,64 +257,64 @@ sc config RemoteRegistry start= Disabled > NUL 2>&1
 set /p serv10="Disable Secondary Logon? y/n: "
 if '%serv10%' == 'n' goto serv11start
 if /i "%serv10%" neq "y" goto serv10start
-sc config seclogon start= Manual > NUL 2>&1 	
+sc config seclogon start= Disabled > NUL 2>&1 	
 	
 :serv11start
 set /p serv11="Disable Security Center? y/n: "
 if '%serv11%' == 'n' goto serv12start
 if /i "%serv11%" neq "y" goto serv11start
-sc config wscsvc start= Manual > NUL 2>&1 
+sc config wscsvc start= Disabled > NUL 2>&1 
 	
 :serv12start
 set /p serv12="Disable TCP/IP NetBIOS Helper (If you are not in a workgroup network)? y/n: "
 if '%serv12%' == 'n' goto serv13start
 if /i "%serv12%" neq "y" goto serv12start
-sc config lmhosts start= Manual > NUL 2>&1
+sc config lmhosts start= Disabled > NUL 2>&1
 	
 :serv13start
 set /p serv13="Disable Touch Keyboard and Handwriting Panel Service (If you don't want to use touch keyboard and handwriting features)? y/n: "
 if '%serv13%' == 'n' goto serv14start
 if /i "%serv13%" neq "y" goto serv13start
-sc config TabletInputService start= Manual > NUL 2>&1
+sc config TabletInputService start= Disabled > NUL 2>&1
 	
 :serv14start
 set /p serv14="Disable Windows Error Reporting Service? y/n: "
 if '%serv14%' == 'n' goto serv15start
 if /i "%serv14%" neq "y" goto serv14start
-sc config WerSvc start= Manual > NUL 2>&1
+sc config WerSvc start= Disabled > NUL 2>&1
 	
 :serv15start
 set /p serv15="Disable Windows Image Acquisition (WIA) (If you don't have a scanner)? y/n: "
 if '%serv15%' == 'n' goto serv16start
 if /i "%serv15%" neq "y" goto serv15start
-sc config stisvc start= Manual > NUL 2>&1
+sc config stisvc start= Disabled > NUL 2>&1
 
 :serv16start
 set /p serv16="Disable Windows Search? y/n: "
 if '%serv16%' == 'n' goto serv17start
 if /i "%serv16%" neq "y" goto serv16start
-sc config WSearch start= Manual > NUL 2>&1
+sc config WSearch start= Disabled > NUL 2>&1
 del "C:\ProgramData\Microsoft\Search\Data\Applications\Windows\Windows.edb" /s > NUL 2>&1
 
 :serv17start
 set /p serv17="Disable tracking services? y/n: "
 if '%serv17%' == 'n' goto serv18start
 if /i "%serv17%" neq "y" goto serv17start
-sc config diagnosticshub.standardcollector.service start= Manual > NUL 2>&1
-sc config WMPNetworkSvc start= Manual > NUL 2>&1
+sc config diagnosticshub.standardcollector.service start= Disabled > NUL 2>&1
+sc config WMPNetworkSvc start= Disabled > NUL 2>&1
 
 :serv18start
 set /p serv18="Disable Superfetch? y/n: "
 if '%serv18%' == 'n' goto serv19start
 if /i "%serv18%" neq "y" goto serv18start
-sc config SysMain start= Manual > NUL 2>&1
+sc config SysMain start= Disabled > NUL 2>&1
 
 :serv19start
 set /p serv19="Disable Windows Defender? y/n: "
 if '%serv19%' == 'n' goto servend
 if /i "%serv19%" neq "y" goto serv19start
-sc config WinDefend start= Manual > NUL 2>&1
-sc config WdNisSvc start= Manual > NUL 2>&1
+sc config WinDefend start= Disabled > NUL 2>&1
+sc config WdNisSvc start= Disabled > NUL 2>&1
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t REG_DWORD /d 1 /f > NUL 2>&1
 schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance" /Disable > NUL 2>&1
 schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cleanup" /Disable > NUL 2>&1
