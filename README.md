@@ -26,6 +26,9 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with optim
 Download, Unzip and Run as Administrator the "Windows-10-Mining-Tweaks.bat" file.
 Select the tweaks that you want by choosing Y/N.
 
+## Improovments
+Please inform me for aditional improovments.
+
 ## Donations
 
 ETH
