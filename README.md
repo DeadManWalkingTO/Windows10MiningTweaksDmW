@@ -1,6 +1,6 @@
 # Windows-10-Mining-Tweaks
-[![GitHub release](https://img.shields.io/github/release/DeadManWalkingTO/Windows-10-Mining-Tweaks/all.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/releases)
-[![GitHub Release Date](https://img.shields.io/github/release-date-pre/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/releases)
+[![GitHub release](https://img.shields.io/github/release/DeadManWalkingTO/Windows-10-Mining-Tweaks/all.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/releases/latest)
+[![GitHub Release Date](https://img.shields.io/github/release-date-pre/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/releases/latest)
 [![GitHub license](https://img.shields.io/github/license/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/network)
@@ -19,7 +19,7 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy
 6. Blocking Telemetry Servers
 
 ## Download
-[![GitHub release](https://img.shields.io/github/release/DeadManWalkingTO/Windows-10-Mining-Tweaks/all.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/releases)
+[![GitHub release](https://img.shields.io/github/release/DeadManWalkingTO/Windows-10-Mining-Tweaks/all.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/releases/latest)
 
 ## Usage
 Download, Unzip and Run as Administrator the "Windows-10-Mining-Tweaks.bat" file.
