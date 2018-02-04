@@ -28,7 +28,7 @@ Select the tweaks that you want by choosing Y/N.
 REBOOT
 
 ## Improvments
-Please inform me for aditional improovments.
+Please inform me for aditional Improvments.
 
 ## Donations
 
