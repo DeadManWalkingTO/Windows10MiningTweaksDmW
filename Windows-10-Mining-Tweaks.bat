@@ -10,7 +10,7 @@ ECHO #  Windows-10-Mining-Tweaks Version %V%                                    
 ECHO #                                                                             #
 ECHO #  Microsoft Windows 10  --  Build 10240 (x64) or later                       #
 ECHO #                                                                             #
-ECHO #  AUTHOR: DeadManWalkingTO - GitHub                                          #
+ECHO #  AUTHOR: DeadManWalking  (DeadManWalkingTO-GitHub)                          #
 ECHO #                                                                             #
 ECHO #                                                                             #
 ECHO #  Features                                                                   #
@@ -492,7 +492,7 @@ ECHO ###########################################################################
 ECHO #                                                                             #
 ECHO #  Microsoft Windows 10  --  Build 10240 (x64) or later                       #
 ECHO #                                                                             #
-ECHO #  AUTHOR: DeadManWalkingTO - GitHub                                          #
+ECHO #  AUTHOR: DeadManWalking  (DeadManWalkingTO-GitHub)                          #
 ECHO #                                                                             #
 ECHO ###############################################################################
 ECHO #                                                                             #
