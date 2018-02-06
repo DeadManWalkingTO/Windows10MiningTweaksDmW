@@ -11,6 +11,10 @@ Windows 10 Mining Tweaks is a script for full optimization on Microsoft Windows 
 
 Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy optimizations/rewrites, since version 3.0.0 add more optimizations and achieve additional 30% less system CPU utilization on GPU mining.
 
+## Table of Contents
+
+
+
 ## Features
 1. Registry Tweaks
 2. Removing Services
