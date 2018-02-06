@@ -1,4 +1,5 @@
 # Windows-10-Mining-Tweaks
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
 [![GitHub release](https://img.shields.io/github/release/DeadManWalkingTO/Windows-10-Mining-Tweaks/all.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/releases/latest)
 [![GitHub Release Date](https://img.shields.io/github/release-date-pre/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/releases/latest)
 [![GitHub license](https://img.shields.io/github/license/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/blob/master/LICENSE)
