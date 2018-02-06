@@ -4,8 +4,8 @@
 [![GitHub Release Date](https://img.shields.io/github/release-date-pre/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/releases/latest)
 [![GitHub top language](https://img.shields.io/github/languages/top/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks)
 [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks)
-
 [![GitHub license](https://img.shields.io/github/license/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/blob/master/LICENSE)
+
 [![GitHub last commit](https://img.shields.io/github/last-commit/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks)
 [![Github commits (since latest release)](https://img.shields.io/github/commits-since/DeadManWalkingTO/Windows-10-Mining-Tweaks/latest.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks)
 [![GitHub stars](https://img.shields.io/github/stars/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/stargazers)
