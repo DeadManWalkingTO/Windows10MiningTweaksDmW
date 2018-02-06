@@ -31,7 +31,7 @@ Download, Unzip and Run as Administrator the "Windows-10-Mining-Tweaks.bat" file
 Select the tweaks that you want by choosing Y/N.
 REBOOT
 
-## Improvments
+## Feedback
 Please inform me for aditional Improvments.
 
 ## Donations
