@@ -1,4 +1,4 @@
-# Windows-10-Mining-Tweaks
+# Windows10MiningTweaksDmW
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
 [![GitHub release](https://img.shields.io/github/release/DeadManWalkingTO/Windows-10-Mining-Tweaks/all.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/releases/latest)
 [![GitHub Release Date](https://img.shields.io/github/release-date-pre/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/releases/latest)
@@ -12,7 +12,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/DeadManWalkingTO/Windows-10-Mining-Tweaks.svg)](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/network)
 > Windows 10 Mining Tweaks by DeadManWalking (DeadManWalkingTO-GitHub) 
 
-Windows 10 Mining Tweaks is a script for full optimization on Microsoft Windows 10 Dedicate Mining PC/Server. 
+Windows10MiningTweaksDmW is a script for full optimization on Microsoft Windows 10 Dedicate Mining PC/Server. 
 
 Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy optimizations/rewrites, since version 3.0.0 add more optimizations and achieve additional 30% less system CPU utilization on GPU mining.
 
