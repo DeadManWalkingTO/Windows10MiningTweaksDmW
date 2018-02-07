@@ -6,7 +6,7 @@ SET V=3.1.2
 TITLE Windows 10 Mining Tweaks (x64) Version %V% by: DeadManWalking
 ECHO ###############################################################################
 ECHO #                                                                             #
-ECHO #  Windows-10-Mining-Tweaks Version %V%                                     #
+ECHO #  Windows10MiningTweaksDmW Version %V%                                     #
 ECHO #                                                                             #
 ECHO #  Microsoft Windows 10  --  Build 10240 (x64) or later                       #
 ECHO #                                                                             #
@@ -490,7 +490,7 @@ REM ========== Finish ==========
 ECHO.
 ECHO ###############################################################################
 ECHO #                                                                             #
-ECHO #  Microsoft Windows 10  --  Build 10240 (x64) or later                       #
+ECHO #  Windows10MiningTweaksDmW Version %V%                                     #
 ECHO #                                                                             #
 ECHO #  AUTHOR: DeadManWalking  (DeadManWalkingTO-GitHub)                          #
 ECHO #                                                                             #
