@@ -36,7 +36,7 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy
 Download [Last release here.](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/releases/latest)
 
 ## Usage
-Download, Unzip and Run as Administrator the "Windows-10-Mining-Tweaks.bat" file.
+Download, Unzip and Run as Administrator the "Windows10MiningTweaksDmW.bat" file.
 Select the tweaks that you want by choosing Y/N.
 REBOOT
 
