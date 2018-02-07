@@ -19,6 +19,7 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy
 ## Table of Contents
 - [Features](#features)
 - [Download](#download)
+- [Install](#install)
 - [Usage](#usage)
 - [Feedback](#feedback)
 - [License](#license)
@@ -34,6 +35,9 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy
 
 ## Download
 Download [Last release here.](../../releases/latest)
+
+## Install
+Script (No installation required)
 
 ## Usage
 Download, Unzip and Run as Administrator the "Windows10MiningTweaksDmW.bat" file.
