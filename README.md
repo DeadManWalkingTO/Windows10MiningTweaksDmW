@@ -33,7 +33,7 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy
 6. Blocking Telemetry Servers
 
 ## Download
-Download [Last release here.](https://github.com/DeadManWalkingTO/Windows-10-Mining-Tweaks/releases/latest)
+Download [Last release here.](../../releases/latest)
 
 ## Usage
 Download, Unzip and Run as Administrator the "Windows10MiningTweaksDmW.bat" file.
