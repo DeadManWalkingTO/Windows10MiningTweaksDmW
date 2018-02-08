@@ -6,6 +6,7 @@
 [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../)
 [![GitHub license](https://img.shields.io/github/license/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](./LICENSE)
 
+[![Github All Releases](https://img.shields.io/github/downloads/DeadManWalkingTO/Windows10MiningTweaksDmW/total.svg)](../../releases/latest)
 [![GitHub last commit](https://img.shields.io/github/last-commit/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../)
 [![Github commits (since latest release)](https://img.shields.io/github/commits-since/DeadManWalkingTO/Windows10MiningTweaksDmW/latest.svg)](../../)
 [![GitHub stars](https://img.shields.io/github/stars/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../stargazers)
