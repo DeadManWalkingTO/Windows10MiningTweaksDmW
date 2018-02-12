@@ -40,7 +40,7 @@ Download [Last release here.](../../releases/latest)
 Script (No installation required)
 
 ## Usage
-* Download
+* Download or Clone
 * Unzip
 * Run (as Administrator) the "Windows10MiningTweaksDmW.bat" file. (Automatically Check & Get Admin Rights since v3.2.8)
 * Select the tweaks that you want by choosing y/n.
