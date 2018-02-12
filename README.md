@@ -49,11 +49,15 @@ Script (No installation required)
 ## Feedback
 Please inform me for aditional Improvments.
 
+If you like please give a [GitHub Star](../../stargazers) (it's free!).
+
 ## License
 
 [MIT © DeadManWalking (DeadManWalkingTO-GitHub).](./LICENSE)
 
 ## Donations
+
+If you find this usefull please donate something at the following:
 
 BTC
 * 15G2BTErGg3i8zTmLfKYStUKtqDLXz6Jc9
