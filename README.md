@@ -40,9 +40,11 @@ Download [Last release here.](../../releases/latest)
 Script (No installation required)
 
 ## Usage
-Download, Unzip and Run as Administrator the "Windows10MiningTweaksDmW.bat" file.
-Select the tweaks that you want by choosing Y/N.
-REBOOT
+* Download
+* Unzip
+* Run (as Administrator) the "Windows10MiningTweaksDmW.bat" file. (Automatically Check & Get Admin Rights since v3.2.8)
+* Select the tweaks that you want by choosing y/n.
+* REBOOT
 
 ## Feedback
 Please inform me for aditional Improvments.
