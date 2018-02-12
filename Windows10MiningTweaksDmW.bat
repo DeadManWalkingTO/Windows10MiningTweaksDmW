@@ -2,7 +2,7 @@ REM ========== Start ==========
 CLS
 @ECHO OFF
 COLOR 1F
-SET V=3.1.4
+SET V=3.1.6
 TITLE Windows 10 Mining Tweaks (x64) Version %V% by: DeadManWalking
 ECHO ###############################################################################
 ECHO #                                                                             #
@@ -311,7 +311,7 @@ sc config SysMain start= Disabled > NUL 2>&1
 
 :serv19start
 set /p serv19="Disable Windows Defender? y/n: "
-if '%serv19%' == 'n' goto servend
+if '%serv19%' == 'n' goto serv20start
 if /i "%serv19%" neq "y" goto serv19start
 sc config WinDefend start= Disabled > NUL 2>&1
 sc config WdNisSvc start= Disabled > NUL 2>&1
@@ -321,6 +321,102 @@ schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cleanu
 schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan" /Disable > NUL 2>&1
 schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Verification" /Disable > NUL 2>&1
 del "C:\ProgramData\Microsoft\Windows Defender\Scans\mpcache*" /s > NUL 2>&1
+
+:serv20start
+set /p serv20="Xbox Services (5)? y/n: "
+if '%serv20%' == 'n' goto serv21start
+if /i "%serv20%" neq "y" goto serv20start
+rem Xbox Accessory Management Service
+sc config XboxGipSvc start= Disabled > NUL 2>&1
+rem Xbox Game Monitoring
+sc config xbgm start= Disabled > NUL 2>&1
+rem Xbox Live Auth Manager
+sc config XblAuthManager start= Disabled > NUL 2>&1
+rem Xbox Live Game Save
+sc config XblGameSave start= Disabled > NUL 2>&1
+rem Xbox Live Networking Service
+sc config XboxNetApiSvc start= Disabled > NUL 2>&1
+
+:serv21start
+set /p serv21="AllJoyn Router Service? y/n: "
+if '%serv21%' == 'n' goto serv22start
+if /i "%serv21%" neq "y" goto serv21start
+rem  This service is used for routing the AllJoyn messages for AllJoyn clients.
+sc config AJRouter start= Disabled > NUL 2>&1
+
+:serv22start
+set /p serv22="Bluetooth Services (2)? y/n: "
+if '%serv22%' == 'n' goto serv23start
+if /i "%serv22%" neq "y" goto serv22start
+rem Bluetooth Handsfree Service
+sc config BthHFSrv start= Disabled > NUL 2>&1
+rem Bluetooth Support Service
+sc config bthserv start= Disabled > NUL 2>&1
+
+:serv23start
+set /p serv23="Geolocation Service? y/n: "
+if '%serv23%' == 'n' goto serv24start
+if /i "%serv23%" neq "y" goto serv23start
+sc config lfsvc start= Disabled > NUL 2>&1
+
+:serv24start
+set /p serv24="Phone Service? y/n: "
+if '%serv24%' == 'n' goto serv25start
+if /i "%serv24%" neq "y" goto serv24start
+sc config PhoneSvc start= Disabled > NUL 2>&1
+
+:serv25start
+set /p serv25="Windows Biometric Service? y/n: "
+if '%serv25%' == 'n' goto serv26start
+if /i "%serv25%" neq "y" goto serv25start
+sc config WbioSrvc start= Disabled > NUL 2>&1
+
+:serv26start
+set /p serv26="Windows Mobile Hotspot Service? y/n: "
+if '%serv26%' == 'n' goto serv27start
+if /i "%serv26%" neq "y" goto serv26start
+sc config icssvc start= Disabled > NUL 2>&1
+
+:serv27start
+set /p serv27="Windows Media Player Network Sharing Service? y/n: "
+if '%serv27%' == 'n' goto serv28start
+if /i "%serv27%" neq "y" goto serv27start
+sc config WMPNetworkSvc start= Disabled > NUL 2>&1
+
+:serv28start
+set /p serv28="Windows Update Service? y/n: "
+if '%serv28%' == 'n' goto serv29start
+if /i "%serv28%" neq "y" goto serv28start
+sc config wuauserv start= Disabled > NUL 2>&1
+
+:serv29start
+set /p serv29="Enterprise App Management Service? y/n: "
+if '%serv29%' == 'n' goto serv30start
+if /i "%serv29%" neq "y" goto serv29start
+sc config EntAppSvc start= Disabled > NUL 2>&1
+
+:serv30start
+set /p serv30="Hyper-V Services (9)? y/n: "
+if '%serv30%' == 'n' goto servend
+if /i "%serv30%" neq "y" goto serv30start
+rem HV Host Service
+sc config HvHost start= Disabled > NUL 2>&1
+rem Hyper-V Data Exchange Service
+sc config vmickvpexchange start= Disabled > NUL 2>&1
+rem Hyper-V Guest Service Interface
+sc config vmicguestinterface start= Disabled > NUL 2>&1
+rem Hyper-V Guest Shutdown Service
+sc config vmicshutdown start= Disabled > NUL 2>&1
+rem Hyper-V Heartbeat Service
+sc config vmicheartbeat start= Disabled > NUL 2>&1
+rem Hyper-V PowerShell Direct Service
+sc config vmicvmsession start= Disabled > NUL 2>&1
+rem Hyper-V Remote Desktop Virtualization Service
+sc config vmicrdv start= Disabled > NUL 2>&1
+rem Hyper-V Time Synchronization Service
+sc config vmictimesync start= Disabled > NUL 2>&1
+rem Hyper-V Volume Shadow Copy Requestor
+sc config vmicvss start= Disabled > NUL 2>&1
 
 :servend
 ECHO.
