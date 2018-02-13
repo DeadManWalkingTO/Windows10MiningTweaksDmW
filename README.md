@@ -33,6 +33,7 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy
 4. Removing Windows Default Apps
 5. Disable / Remove OneDrive
 6. Blocking Telemetry Servers
+7. Blocking More Windows Servers
 
 ## Download
 Download [Last release here.](../../releases/latest)
