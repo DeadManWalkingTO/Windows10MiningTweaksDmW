@@ -1,5 +1,5 @@
 # Windows10MiningTweaksDmW
-[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](./README.md)
+[![HitCount](http://hits.dwyl.io/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../)
 [![GitHub release](https://img.shields.io/github/release/DeadManWalkingTO/Windows10MiningTweaksDmW/all.svg)](../../releases/latest)
 [![GitHub Release Date](https://img.shields.io/github/release-date-pre/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../releases/latest)
 [![GitHub top language](https://img.shields.io/github/languages/top/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../)
@@ -10,6 +10,7 @@
 [![Github commits (since latest release)](https://img.shields.io/github/commits-since/DeadManWalkingTO/Windows10MiningTweaksDmW/latest.svg)](../../)
 [![GitHub stars](https://img.shields.io/github/stars/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../network)
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](./README.md)
 > Windows 10 Mining Tweaks by DeadManWalking (DeadManWalkingTO-GitHub) 
 
 Windows10MiningTweaksDmW is a script for full optimization on Microsoft Windows 10 Dedicate Mining PC/Server. 
