@@ -2,7 +2,7 @@ rem ========== Start ==========
 
 cls
 @echo OFF
-clolor 1F
+color 1F
 set V=3.3.0
 title Windows 10 Mining Tweaks (x64) Version %V% by: DeadManWalking
 echo ###############################################################################
@@ -57,7 +57,7 @@ exit /B
 
 :gotPrivileges
 setlocal & pushd .
-CD /d %~dp0
+cd /d %~dp0
 if '%1'=='ELEV' (del "%vbsGetPrivileges%" 1>nul 2>nul  &  shift /1)
 
 rem ========== 1. Registry Tweaks ==========
@@ -351,11 +351,11 @@ if /i "%serv19%" neq "y" goto serv19start
 sc config WinDefend start= Disabled > nul 2>&1
 sc config WdNisSvc start= Disabled > nul 2>&1
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t REG_DWORD /d 1 /f > nul 2>&1
-SCHTASKS /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance" /Disable > nul 2>&1
-SCHTASKS /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cleanup" /Disable > nul 2>&1
-SCHTASKS /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan" /Disable > nul 2>&1
-SCHTASKS /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Verification" /Disable > nul 2>&1
-DEL "C:\ProgramData\Microsoft\Windows Defender\Scans\mpcache*" /s > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance" /Disable > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cleanup" /Disable > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan" /Disable > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Verification" /Disable > nul 2>&1
+del "C:\ProgramData\Microsoft\Windows Defender\Scans\mpcache*" /s > nul 2>&1
 
 :serv20start
 set /p serv20="Xbox Services (5)? y/n: "
@@ -632,6 +632,6 @@ echo #                                                                          
 echo #  Press any key to exit.                                                     #
 echo #                                                                             #
 echo ###############################################################################
-PAUSE > nul
+pause > nul
 
 rem ========== EOF ==========
