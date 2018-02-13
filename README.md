@@ -48,13 +48,13 @@ Script (No installation required)
 * REBOOT
 
 ## Feedback
-Please inform me for aditional Improvments. [Open an Issue.](../../issues)
+Please inform me for aditional Improvments. [Open an Issue](../../issues).
 
 If you like please give a [GitHub Star](../../stargazers) (it's free!).
 
 ## License
 
-[MIT © DeadManWalking (DeadManWalkingTO-GitHub).](./LICENSE)
+[MIT © DeadManWalking (DeadManWalkingTO-GitHub)](./LICENSE).
 
 ## Donations
 
