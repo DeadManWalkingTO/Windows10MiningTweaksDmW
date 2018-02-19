@@ -57,7 +57,7 @@ If you like please give a [GitHub Star](../../stargazers) (it's free!).
 [DeadManWalking (DeadManWalkingTO-GitHub)](https://github.com/DeadManWalkingTO).
 
 ## Contribute
-Feel free to open an [issue](../../issues/new) or submit [Pull Requests](../../pulls).
+Feel free to open an [Issue](../../issues/new) or submit [Pull Requests](../../pulls).
 
 ## License
 
