@@ -1,10 +1,13 @@
+rem ========== Pre ==========
+
+@echo OFF
+set V=3.6.2
+color 1F
+title Windows 10 Mining Tweaks (x64) Version %V% by: DeadManWalking
+
 rem ========== Start ==========
 
 cls
-@echo OFF
-color 1F
-set V=3.6.1
-title Windows 10 Mining Tweaks (x64) Version %V% by: DeadManWalking
 echo ###############################################################################
 echo #                                                                             #
 echo #  Windows10MiningTweaksDmW Version %V%                                     #
@@ -1289,4 +1292,6 @@ echo ###########################################################################
 
 pause > nul
 
-rem ========== EOF ==========
+rem ========== End ==========
+
+rem ========== EoF ==========
