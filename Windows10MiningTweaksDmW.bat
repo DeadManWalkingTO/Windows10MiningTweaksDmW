@@ -1,8 +1,12 @@
 rem ========== Pre ==========
 
-@echo OFF
-set V=3.6.2
+rem Don't echo to standard output
+@echo off
+rem Set version info
+set V=3.6.3
+rem Change colors
 color 1F
+rem Set title
 title Windows 10 Mining Tweaks (x64) Version %V% by: DeadManWalking
 
 rem ========== Start ==========
