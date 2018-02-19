@@ -23,6 +23,8 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy
 - [Install](#install)
 - [Usage](#usage)
 - [Feedback](#feedback)
+- [Maintainers](#maintainers)
+- [Contribute](#contribute)
 - [License](#license)
 - [Donations](#donations)
 
