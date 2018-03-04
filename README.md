@@ -11,7 +11,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../network)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](./README.md)
-> Windows 10 Mining Tweaks by DeadManWalking (DeadManWalkingTO-GitHub) 
+> Windows 10 Mining Tweaks by [DeadManWalking (DeadManWalkingTO-GitHub)](https://github.com/DeadManWalkingTO)
 
 Windows10MiningTweaksDmW is a script for full optimization on Microsoft Windows 10 Dedicate Mining PC/Server. 
 
