@@ -3,7 +3,7 @@ rem ========== Pre ==========
 rem Don't echo to standard output
 @echo off
 rem Set version info
-set V=3.6.3
+set V=3.6.4
 rem Change colors
 color 1F
 rem Set title
