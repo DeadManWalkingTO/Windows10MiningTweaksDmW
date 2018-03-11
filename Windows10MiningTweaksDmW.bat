@@ -33,6 +33,7 @@ echo #  7. Blocking More Windows Servers                                        
 echo #                                                                             #
 echo ###############################################################################
 echo.
+timeout /T 1 /NOBREAK > nul
 
 rem ========== Automatically Check & Get Admin Rights ==========
 
@@ -45,7 +46,7 @@ setlocal EnableDelayedExpansion
 
 :checkPrivileges
 NET FILE 1>nul 2>nul
-if '%errorlevel%' == '0' ( goto gotPrivileges ) ELSE ( goto getPrivileges )
+if '%errorlevel%' == '0' ( goto gotPrivileges ) else ( goto getPrivileges )
 
 :getPrivileges
 if '%1'=='ELEV' (echo ELEV & shift /1 & goto gotPrivileges)
@@ -100,7 +101,7 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /f /v
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg02pass
 
 :reg02start
@@ -112,7 +113,7 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcon
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg03pass
 
 :reg03start
@@ -124,7 +125,7 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "H
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg04pass
 
 :reg04start
@@ -136,7 +137,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization" /v "NoLockScr
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg05pass
 
 :reg05start
@@ -148,7 +149,7 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "F
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg06pass
 
 :reg06start
@@ -160,7 +161,7 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "S
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg07pass
 
 :reg07start
@@ -173,7 +174,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Con
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+2
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg08pass
 
 :reg08start
@@ -187,7 +188,7 @@ reg delete "HKEY_CLASSES_ROOT\mscfile\shellex\ContextMenuHandlers\PintoStartScre
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+3
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg09pass
 
 :reg09start
@@ -199,7 +200,7 @@ reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "IconVerticalSpacing" /t R
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg10pass
 
 :reg10start
@@ -211,7 +212,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v NoPreviousV
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg11pass
 
 :reg11start
@@ -223,7 +224,7 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "S
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg12pass
 
 :reg12start
@@ -245,7 +246,7 @@ reg add "HKLM\COMPONENTS\DerivedData\Components\amd64_microsoft-windows-c..lemet
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+11
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg13pass
 
 :reg13start
@@ -268,7 +269,7 @@ reg add "HKCU\Software\Policies\Microsoft\Internet Explorer\Main" /v "RunOnceCom
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+12
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg14pass
 
 :reg14start
@@ -283,7 +284,7 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "BingSearchEn
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+4
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg15pass
 
 :reg15start
@@ -295,7 +296,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "DisableLogonBackgr
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg16pass
 
 :reg16start
@@ -307,7 +308,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "D
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg17pass
 
 :reg17start
@@ -319,7 +320,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Updat
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg18pass
 
 :reg18start
@@ -331,7 +332,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "Hiberb
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg19pass
 
 :reg19start
@@ -343,7 +344,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution 
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 
 :regend
 echo.
@@ -378,7 +379,7 @@ sc config DiagTrack start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv02pass
 
 :serv02start
@@ -390,7 +391,7 @@ sc config DPS start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv03pass
 
 :serv03start
@@ -402,7 +403,7 @@ sc config TrkWks start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv04pass
 
 :serv04start
@@ -414,7 +415,7 @@ sc config dmwappushservice start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv05pass
 
 :serv05start
@@ -426,7 +427,7 @@ sc config MapsBroker start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv06pass
 
 :serv06start
@@ -438,7 +439,7 @@ sc config iphlpsvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv07pass
 
 :serv07start
@@ -450,7 +451,7 @@ sc config PcaSvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv08pass
 
 :serv08start
@@ -462,7 +463,7 @@ sc config Spooler start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv09pass
 
 :serv09start
@@ -474,7 +475,7 @@ sc config RemoteRegistry start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv10pass
 
 :serv10start
@@ -486,7 +487,7 @@ sc config seclogon start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv11pass
 
 :serv11start
@@ -498,7 +499,7 @@ sc config wscsvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv12pass
 
 :serv12start
@@ -510,7 +511,7 @@ sc config lmhosts start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv13pass
 
 :serv13start
@@ -522,7 +523,7 @@ sc config TabletInputService start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv14pass
 
 :serv14start
@@ -534,7 +535,7 @@ sc config WerSvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv15pass
 
 :serv15start
@@ -546,7 +547,7 @@ sc config stisvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv16pass
 
 :serv16start
@@ -559,7 +560,7 @@ del "C:\ProgramData\Microsoft\Search\Data\Applications\Windows\Windows.edb" /s >
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv17pass
 
 :serv17start
@@ -572,7 +573,7 @@ sc config WMPNetworkSvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+2
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv18pass
 
 :serv18start
@@ -584,7 +585,7 @@ sc config SysMain start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv19pass
 
 :serv19start
@@ -603,7 +604,7 @@ del "C:\ProgramData\Microsoft\Windows Defender\Scans\mpcache*" /s > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+8
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv20pass
 
 :serv20start
@@ -624,7 +625,7 @@ sc config XboxNetApiSvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+5
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv21pass
 
 :serv21start
@@ -637,7 +638,7 @@ sc config AJRouter start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv22pass
 
 :serv22start
@@ -652,7 +653,7 @@ sc config bthserv start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+2
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv23pass
 
 :serv23start
@@ -664,7 +665,7 @@ sc config lfsvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv24pass
 
 :serv24start
@@ -676,7 +677,7 @@ sc config PhoneSvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv25pass
 
 :serv25start
@@ -688,7 +689,7 @@ sc config WbioSrvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv26pass
 
 :serv26start
@@ -700,7 +701,7 @@ sc config icssvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv27pass
 
 :serv27start
@@ -712,7 +713,7 @@ sc config WMPNetworkSvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv28pass
 
 :serv28start
@@ -724,7 +725,7 @@ sc config wuauserv start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv29pass
 
 :serv29start
@@ -736,7 +737,7 @@ sc config EntAppSvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv30pass
 
 :serv30start
@@ -765,7 +766,7 @@ sc config vmicvss start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+9
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv31pass
 
 :serv31start
@@ -777,7 +778,7 @@ sc config HomeGroupListener start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv32pass
 
 :serv32start
@@ -789,7 +790,7 @@ sc config HomeGroupProvider start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv33pass
 
 :serv33start
@@ -801,7 +802,7 @@ sc config NetTcpPortSharing start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv34pass
 
 :serv34start
@@ -813,7 +814,7 @@ sc config RemoteAccess start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 if '%services%' == 'a' goto serv35pass
 
 :serv35start
@@ -825,7 +826,7 @@ sc config RemoteAccess start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 
 :servend
 echo.
@@ -862,7 +863,7 @@ schtasks /Change /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting" 
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+8
 echo Done %PRun% / %PMax% Removing Scheduled Tasks. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 
 :schedend
 echo.
@@ -903,7 +904,7 @@ powershell "Get-AppxPackage *xbox* | Remove-AppxPackage" > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+12
 echo Done %PRun% / %PMax% Removing Windows Default Apps. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 
 :winappend
 echo.
@@ -932,7 +933,7 @@ reg add "HKLM\Software\Policies\Microsoft\Windows\OneDrive" /v DisableFileSyncNG
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Disable / Remove OneDrive. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 
 :odriveend
 echo.
@@ -1014,7 +1015,7 @@ attrib +r "%WINDIR%\system32\drivers\etc\hosts" > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+25
 echo Done %PRun% / %PMax% Blocking Telemetry Servers. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 
 :hostend
 echo.
@@ -1265,7 +1266,7 @@ attrib +r "%WINDIR%\system32\drivers\etc\hosts" > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+109
 echo Done %PRun% / %PMax% Blocking More Windows Servers. Total Actions %PAct%.
-timeout 1 > nul
+timeout /T 1 /NOBREAK > nul
 
 :morehostend
 echo.
