@@ -3,7 +3,7 @@ rem ========== Pre ==========
 rem Don't echo to standard output
 @echo off
 rem Set version info
-set V=3.6.5
+set V=3.6.6
 rem Change colors
 color 1F
 rem Set title
@@ -348,11 +348,12 @@ timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg20pass
 
 :reg20start
-set /p reg20="Turn off the Error Dialog (1)? y/n: "
+set /p reg20="Turn off the Error Dialog (2)? y/n: "
 if '%reg20%' == 'n' goto regend
 if /i "%reg20%" neq "y" goto reg20start
 :reg20pass
 reg add "HKCU\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v "DontShowUI" /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v "DontShowUI" /t REG_DWORD /d 1 /f > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
