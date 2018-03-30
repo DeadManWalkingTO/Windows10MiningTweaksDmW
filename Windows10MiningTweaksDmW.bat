@@ -3,7 +3,7 @@ rem ========== Pre ==========
 rem Don't echo to standard output
 @echo off
 rem Set version info
-set V=3.6.4
+set V=3.6.5
 rem Change colors
 color 1F
 rem Set title
@@ -84,10 +84,10 @@ echo ###########################################################################
 echo.
 
 :regstart
-set PMax=19
+set PMax=20
 set PRun=0
 rem set PAct=0
-set /p registry="Apply Registry tweaks (19)? y/n/a: "
+set /p registry="Apply Registry tweaks (20)? y/n/a: "
 if '%registry%' == 'n' goto regend
 if '%registry%' == 'a' goto reg01pass
 if /i "%registry%" neq "y" goto regstart
@@ -337,10 +337,22 @@ if '%registry%' == 'a' goto reg19pass
 
 :reg19start
 set /p reg19="Replace Utilman with CMD (1)? y/n: "
-if '%reg19%' == 'n' goto regend
+if '%reg19%' == 'n' goto reg20start
 if /i "%reg19%" neq "y" goto reg19start
 :reg19pass
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\utilman.exe" /v "Debugger" /t REG_SZ /d "cmd.exe" /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+if '%registry%' == 'a' goto reg20pass
+
+:reg20start
+set /p reg20="Turn off the Error Dialog (1)? y/n: "
+if '%reg20%' == 'n' goto regend
+if /i "%reg20%" neq "y" goto reg20start
+:reg20pass
+reg add "HKCU\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v "DontShowUI" /t REG_DWORD /d 1 /f > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
