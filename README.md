@@ -36,6 +36,7 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy
 5. Disable / Remove OneDrive
 6. Blocking Telemetry Servers
 7. Blocking More Windows Servers
+8. Disable Windows Error Recovery on Startup
 
 ## Download
 Download [Last release here.](../../releases/latest)
