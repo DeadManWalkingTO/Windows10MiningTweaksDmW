@@ -3,7 +3,7 @@ rem ========== Pre ==========
 rem Don't echo to standard output
 @echo off
 rem Set version info
-set V=3.6.6
+set V=3.6.7
 rem Change colors
 color 1F
 rem Set title
@@ -30,6 +30,7 @@ echo #  4. Removing Windows Default Apps                                        
 echo #  5. Disable / Remove OneDrive                                               #
 echo #  6. Blocking Telemetry Servers                                              #
 echo #  7. Blocking More Windows Servers                                           #
+echo #  8. Disable Windows Error Recovery on Startup                               #
 echo #                                                                             #
 echo ###############################################################################
 echo.
@@ -1285,6 +1286,37 @@ timeout /T 1 /NOBREAK > nul
 echo.
 echo ###############################################################################
 echo #  7. Blocking More Windows Servers  --  End                                  #
+echo ###############################################################################
+echo.
+
+rem ========== 8. Disable Windows Error Recovery on Startup ==========
+
+echo.
+echo ###############################################################################
+echo #  8. Disable Windows Error Recovery on Startup   --  Start                   #
+echo ###############################################################################
+echo.
+
+:errorrecoverystart
+set PMax=1
+set PRun=0
+rem set PAct=0
+set /p errorrecovery="Disable Windows Error Recovery on Startup (2)? y/n: "
+if '%errorrecovery%' == 'n' goto errorrecoveryend
+if /i "%errorrecovery%" neq "y" goto errorrecoverystart
+
+bcdedit /set recoveryenabled NO > nul 2>&1
+bcdedit /set {current} bootstatuspolicy ignoreallfailures > nul 2>&1
+
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+2
+echo Done %PRun% / %PMax% Disable Windows Error Recovery on Startup. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+
+:errorrecoveryend
+echo.
+echo ###############################################################################
+echo #  8. Disable Windows Error Recovery on Startup   --  End                     #
 echo ###############################################################################
 echo.
 
