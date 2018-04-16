@@ -3,7 +3,7 @@ rem ========== Pre ==========
 rem Don't echo to standard output
 @echo off
 rem Set version info
-set V=3.6.7
+set V=3.6.8
 rem Change colors
 color 1F
 rem Set title
@@ -85,28 +85,30 @@ echo ###########################################################################
 echo.
 
 :regstart
-set PMax=20
+set PMax=19
 set PRun=0
 rem set PAct=0
-set /p registry="Apply Registry tweaks (20)? y/n/a: "
+set /p registry="Apply Registry tweaks (19)? y/n/a: "
 if '%registry%' == 'n' goto regend
 if '%registry%' == 'a' goto reg01pass
 if /i "%registry%" neq "y" goto regstart
 
+rem Disable this tweak because causes "Explorer.EXE Unknown Error"
 :reg01start
-set /p reg01="Disable Quick Access as default view in Explorer? y/n: "
-if '%reg01%' == 'n' goto reg02start
-if /i "%reg01%" neq "y" goto reg01start
+rem set /p reg01="Disable Quick Access as default view in Explorer? y/n: "
+rem if '%reg01%' == 'n' goto reg02start
+rem if /i "%reg01%" neq "y" goto reg01start
 :reg01pass
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /f /v "LaunchTo" /t REG_DWORD /d 0 > nul 2>&1
-set /A PRun=%PRun%+1
-set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+rem reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /f /v "LaunchTo" /t REG_DWORD /d 0 > nul 2>&1
+rem set /A PRun=%PRun%+1
+rem set /A PAct=%PAct%+1
+rem echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+
 timeout /T 1 /NOBREAK > nul
 if '%registry%' == 'a' goto reg02pass
 
 :reg02start
-set /p reg02="1.2 Show computer shortcut on desktop? y/n: "
+set /p reg02="Show computer shortcut on desktop? y/n: "
 if '%reg02%' == 'n' goto reg03start
 if /i "%reg02%" neq "y" goto reg02start
 :reg02pass
