@@ -3,7 +3,7 @@ rem ========== Pre ==========
 rem Don't echo to standard output
 @echo off
 rem Set version info
-set V=3.6.8
+set V=3.6.9
 rem Change colors
 color 1F
 rem Set title
@@ -384,7 +384,7 @@ rem set PAct=0
 set /p services="Removing Services (35)? y/n/a: "
 if '%services%' == 'n' goto servend
 if '%services%' == 'a' goto serv01pass
-if /i "%services%" neq "n" if /i "%services%" neq "y" goto servstart
+if /i "%services%" neq "y" goto servstart
 
 :serv01start
 set /p serv01="Disable Connected User Experiences and Telemetry (To turn off Telemetry and Data Collection)? y/n: "
@@ -865,7 +865,7 @@ set PRun=0
 rem set PAct=0
 set /p schedules="Removing scheduled tasks (8)? y/n: "
 if '%schedules%' == 'n' goto schedend
-if /i "%schedules%" neq "n" if /i "%schedules%" neq "y" goto schedstart
+if /i "%schedules%" neq "y" goto schedstart
 
 schtasks /Change /TN "Microsoft\Windows\AppID\SmartScreenSpecific" /Disable > nul 2>&1
 schtasks /Change /TN "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /Disable > nul 2>&1
@@ -902,7 +902,7 @@ set PRun=0
 rem set PAct=0
 set /p winapps="Removing Windows default apps (12)? y/n: "
 if '%winapps%' == 'n' goto winappend
-if /i "%winapps%" neq "n" if /i "%winapps%" neq "y" goto winappstart
+if /i "%winapps%" neq "y" goto winappstart
 
 powershell "Get-AppxPackage *3d* | Remove-AppxPackage" > nul 2>&1
 powershell "Get-AppxPackage *bing* | Remove-AppxPackage" > nul 2>&1
@@ -941,9 +941,10 @@ echo.
 set PMax=1
 set PRun=0
 rem set PAct=0
-set /p onedrive="Disable OneDrive? y/n: "
+set /p onedrive="Disable OneDrive (3)? y/n: "
 if '%onedrive%' == 'n' goto odriveend
 if /i "%onedrive%" neq "y" goto odrivestart
+
 reg add "HKLM\Software\Policies\Microsoft\Windows\OneDrive" /v DisableFileSyncNGSC /t REG_DWORD /d 1 /f > nul 2>&1
 
 :: Detete OneDrive icon on explorer.exe (Only 64 Bits)
@@ -951,7 +952,7 @@ reg add "HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v Syst
 reg add "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /t reg_DWORD /d 0 /f
 
 set /A PRun=%PRun%+1
-set /A PAct=%PAct%+1
+set /A PAct=%PAct%+3
 echo Done %PRun% / %PMax% Disable / Remove OneDrive. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
 
