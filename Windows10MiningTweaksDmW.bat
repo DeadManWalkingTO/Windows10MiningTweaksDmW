@@ -946,6 +946,10 @@ if '%onedrive%' == 'n' goto odriveend
 if /i "%onedrive%" neq "y" goto odrivestart
 reg add "HKLM\Software\Policies\Microsoft\Windows\OneDrive" /v DisableFileSyncNGSC /t REG_DWORD /d 1 /f > nul 2>&1
 
+:: Detete OneDrive icon on explorer.exe (Only 64 Bits)
+reg add "HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /t reg_DWORD /d 0 /f
+reg add "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /t reg_DWORD /d 0 /f
+
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Disable / Remove OneDrive. Total Actions %PAct%.
@@ -972,7 +976,7 @@ set PRun=0
 rem set PAct=0
 set /p hostsblock="Blocking Telemetry Servers (25)? y/n: "
 if '%hostsblock%' == 'n' goto hostend
-if /i "%hostsblock%" neq "n" if /i "%hostsblock%" neq "y" goto hoststart
+if /i "%hostsblock%" neq "y" goto hoststart
 
 copy "%WINDIR%\system32\drivers\etc\hosts" "%WINDIR%\system32\drivers\etc\hosts.bak" > nul 2>&1
 attrib -r "%WINDIR%\system32\drivers\etc\hosts" > nul 2>&1
@@ -1053,8 +1057,8 @@ set PMax=1
 set PRun=0
 rem set PAct=0
 set /p morehostsblock="Blocking Telemetry Servers (109)? y/n: "
-if '%morehostsblock%' == 'n' goto hostend
-if /i "%morehostsblock%" neq "n" if /i "%morehostsblock%" neq "y" goto morehoststart
+if '%morehostsblock%' == 'n' goto morehostend
+if /i "%morehostsblock%" neq "y" goto morehoststart
 
 copy "%WINDIR%\system32\drivers\etc\hosts" "%WINDIR%\system32\drivers\etc\hosts.bak" > nul 2>&1
 attrib -r "%WINDIR%\system32\drivers\etc\hosts" > nul 2>&1
