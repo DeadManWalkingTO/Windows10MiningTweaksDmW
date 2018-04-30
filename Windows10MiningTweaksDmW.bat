@@ -3,7 +3,7 @@ rem ========== Pre ==========
 rem Don't echo to standard output
 @echo off
 rem Set version info
-set V=3.6.9
+set V=4.2.3
 rem Change colors
 color 1F
 rem Set title
@@ -31,6 +31,10 @@ echo #  5. Disable / Remove OneDrive                                            
 echo #  6. Blocking Telemetry Servers                                              #
 echo #  7. Blocking More Windows Servers                                           #
 echo #  8. Disable Windows Error Recovery on Startup                               #
+echo #  9. Internet Explorer 11 Tweaks                                             #
+echo #  10. Libraries Tweaks                                                       #
+echo #  11. Windows Update Tweaks                                                  #
+echo #  12. Windows Defender Tweaks                                                #
 echo #                                                                             #
 echo ###############################################################################
 echo.
@@ -84,107 +88,551 @@ echo #  1. Registry Tweaks  --  Start                                           
 echo ###############################################################################
 echo.
 
-:regstart
-set PMax=19
+:1000
+set /A Pline=1000
+set PMax=37
 set PRun=0
 rem set PAct=0
-set /p registry="Apply Registry tweaks (19)? y/n/a: "
-if '%registry%' == 'n' goto regend
-if '%registry%' == 'a' goto reg01pass
-if /i "%registry%" neq "y" goto regstart
+echo Apply Registry tweaks (%PMax%).
+set /p Pselect="Continue? y/n/a: "
+if '%Pselect%' == 'y' set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+2
+if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+goto %Pline%
 
-rem Disable this tweak because causes "Explorer.EXE Unknown Error"
-:reg01start
-rem set /p reg01="Disable Quick Access as default view in Explorer? y/n: "
-rem if '%reg01%' == 'n' goto reg02start
-rem if /i "%reg01%" neq "y" goto reg01start
-:reg01pass
-rem reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /f /v "LaunchTo" /t REG_DWORD /d 0 > nul 2>&1
-rem set /A PRun=%PRun%+1
-rem set /A PAct=%PAct%+1
-rem echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-
-timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg02pass
-
-:reg02start
-set /p reg02="Show computer shortcut on desktop? y/n: "
-if '%reg02%' == 'n' goto reg03start
-if /i "%reg02%" neq "y" goto reg02start
-:reg02pass
+:1001
+set myMSG=Show computer shortcut on desktop.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1002
+rem 0 = show icon, 1 = don't show icon
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" /v "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" /t REG_DWORD /d 0 /f > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg03pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:reg03start
-set /p reg03="Show file extensions? y/n: "
-if '%reg03%' == 'n' goto reg04start
-if /i "%reg03%" neq "y" goto reg03start
-:reg03pass
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideFileExt" /t REG_DWORD /d 0 /f > nul 2>&1
+:1003
+set myMSG=Show Network shortcut on desktop.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1004
+rem 0 = show icon, 1 = don't show icon
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" /v "{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}" /t REG_DWORD /d 0 /f > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg04pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:reg04start
-set /p reg04="Disable lockscreen? y/n: "
-if '%reg04%' == 'n' goto reg05start
-if /i "%reg04%" neq "y" goto reg04start
-:reg04pass
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization" /v "NoLockScreen" /t REG_DWORD /d 1 /f > nul 2>&1
+:1005
+set myMSG=Classic vertical icon spacing.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1006
+reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "IconVerticalSpacing" /t REG_SZ /d "-1150" /f > nul 2>&1set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1007
+set myMSG=Lock the Taskbar.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1008
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d 0 /f > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg05pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:reg05start
-set /p reg05="Enable classic control panel view? y/n: "
-if '%reg05%' == 'n' goto reg06start
-if /i "%reg05%" neq "y" goto reg05start
-:reg05pass
+:1009
+set myMSG=Always show all icons on the taskbar (next to clock).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1010
+rem 0 = Show all icons
+rem 1 = Hide icons on the taskbar
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "EnableAutoTray" /t REG_DWORD /d 0 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1011
+set myMSG=Delay taskbar thumbnail pop-ups to 10 seconds.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1012
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ExtendedUIHoverTime" /t REG_DWORD /d "10000" /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1013
+set myMSG=Enable classic control panel view.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1014
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "ForceClassicControlPanel" /t REG_DWORD /d 1 /f > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg06pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:reg06start
-set /p reg06="Hide indication for compressed NTFS files? y/n: "
-if '%reg06%' == 'n' goto reg07start
-if /i "%reg06%" neq "y" goto reg06start
-:reg06pass
+:1015
+set myMSG=Turn OFF Sticky Keys when SHIFT is pressed 5 times.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1016
+rem 506 = Off, 510 = On (default)
+reg add "HKCU\Control Panel\Accessibility\StickyKeys" /v "Flags" /t REG_SZ /d "506" /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1017
+set myMSG=Turn OFF Filter Keys when SHIFT is pressed for 8 seconds.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1018
+rem 122 = Off, 126 = On (default)
+reg add "HKCU\Control Panel\Accessibility\Keyboard Response" /v "Flags" /t REG_SZ /d "122" /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1019
+set myMSG=Disable Hibernation.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1020
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d 0 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1021
+set myMSG=Underline keyboard shortcuts and access keys.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1022
+reg add "HKCU\Control Panel\Accessibility\Keyboard Preference" /v "On" /t REG_SZ /d 1 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1023
+set myMSG=Show known file extensions in Explorer.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1024
+rem 0 = extensions are visible
+rem 1 = extensions are hidden
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideFileExt" /t REG_DWORD /d 0 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1025
+set myMSG=Hide indication for compressed NTFS files.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1026
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowCompColor" /t RED_DWORD /d 0 /f > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg07pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:reg07start
-set /p reg07="Disable Windows Update sharing (2)? y/n: "
-if '%reg07%' == 'n' goto reg08start
-if /i "%reg07%" neq "y" goto reg07start
-:reg07pass
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" /v "DownloadMode" /t REG_DWORD /d 0 /f > nul 2>&1
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" /v "DODownloadMode" /t REG_DWORD /d 0 /f > nul 2>&1
+:1027
+set myMSG=Show Hidden files in Explorer.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1028
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Hidden" /t REG_DWORD /d 1 /f > nul 2>&1
 set /A PRun=%PRun%+1
-set /A PAct=%PAct%+2
+set /A PAct=%PAct%+1
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg08pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:reg08start
-set /p reg08="Remove Pin to start (3)? y/n: "
-if '%reg08%' == 'n' goto reg09start
-if /i "%reg08%" neq "y" goto reg08start
-:reg08pass
+:1029
+set myMSG=Show Super Hidden System files in Explorer.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1030
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSuperHidden" /t REG_DWORD /d 1 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1031
+set myMSG=Prevent both Windows and Office from creating LNK files in the Recents folder.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1032
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoRecentDocsHistory" /t REG_DWORD /d 1 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1033
+set myMSG=Replace Utilman with CMD.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1034
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\utilman.exe" /v "Debugger" /t REG_SZ /d "cmd.exe" /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1035
+set myMSG=Add the option "Processor performance core parking min cores".
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1036
+rem Option will be added to: Power Options > High Performance > Change Plan Settings > Change advanced power settings > Processor power management
+rem Default data is 1 (option hidden)
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647-c1df-4637-891a-dec35c318583" /v "Attributes" /t REG_DWORD /d 0 /f  > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1037
+set myMSG=Add the option "Disable CPU Core Parking".
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1038
+rem Default value is 100 decimal.
+rem Basically "Core parking" means that the OS can use less CPU cores when they are not needed, and saving power.
+rem This, however, can somewhat hamper performance, so advanced users prefer to disable this feature.
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647-c1df-4637-891a-dec35c318583" /v "ValueMax" /t REG_DWORD /d 0 /f  > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1039
+set myMSG=Remove Logon screen wallpaper/background. Will use solid color instead (Accent color).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1040
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "DisableLogonBackgroundImage" /t REG_DWORD /d 1 /f  > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1041
+set myMSG=Disable lockscreen.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1042
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization" /v "NoLockScreen" /t REG_DWORD /d 1 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1043
+set myMSG=Remove versioning tab from properties.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1044
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v NoPreviousVersionsPage /t REG_DWORD /d 1 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1045
+set myMSG=Disable jump lists.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1046
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackDocs" /t REG_DWORD /d 0 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1047
+set myMSG=Disable Windows Error Reporting.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1048
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "Disabled" /t REG_DWORD /d 1 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1049
+set myMSG=Disable Cortana (Speech Search Assistant, which also sends information to Microsoft).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1050
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d 0 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1051
+set myMSG=Hide the search box from taskbar. You can still search by pressing the Win key and start typing what you're looking for.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1052
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d 0 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1053
+set myMSG=Disable MRU lists (jump lists) of XAML apps in Start Menu.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1054
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackDocs" /t REG_DWORD /d 0 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1055
+set myMSG=Set Windows Explorer to start on This PC instead of Quick Access.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1056
+rem 1 = This PC, 2 = Quick access
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "LaunchTo" /t REG_DWORD /d 1 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1057
+set myMSG=Disable Disk Quota tab, which appears as a tab when right-clicking on drive letter - Properties.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1058
+rem 1 = This PC, 2 = Quick access
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DiskQuota" /v "Enable" /t REG_DWORD /d 0 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1059
+set myMSG=Disable creation of an Advertising ID.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1060
+rem 1 = This PC, 2 = Quick access
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Enabled" /t REG_DWORD /d 0 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1061
+set myMSG=Remove Pin to start (3).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1062
 reg delete "HKEY_CLASSES_ROOT\exefile\shellex\ContextMenuHandlers\PintoStartScreen" /f > nul 2>&1
 reg delete "HKEY_CLASSES_ROOT\Folder\shellex\ContextMenuHandlers\PintoStartScreen" /f > nul 2>&1
 reg delete "HKEY_CLASSES_ROOT\mscfile\shellex\ContextMenuHandlers\PintoStartScreen" /f > nul 2>&1
@@ -192,49 +640,135 @@ set /A PRun=%PRun%+1
 set /A PAct=%PAct%+3
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg09pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:reg09start
-set /p reg09="Classic vertical icon spacing? y/n: "
-if '%reg09%' == 'n' goto reg10start
-if /i "%reg09%" neq "y" goto reg09start
-:reg09pass
-reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "IconVerticalSpacing" /t REG_SZ /d "-1150" /f > nul 2>&1
+:1063
+set myMSG=Disable Cortana, Bing Search and Searchbar (4).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1064
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d 0 /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "CortanaEnabled" /t REG_DWORD /d 0 /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d 0 /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "BingSearchEnabled" /t REG_DWORD /d 0 /f > nul 2>&1
 set /A PRun=%PRun%+1
-set /A PAct=%PAct%+1
+set /A PAct=%PAct%+4
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg10pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:reg10start
-set /p reg10="Remove versioning tab from properties? y/n: "
-if '%reg10%' == 'n' goto reg11start
-if /i "%reg10%" neq "y" goto reg10start
-:reg10pass
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v NoPreviousVersionsPage /t REG_DWORD /d 1 /f > nul 2>&1
+:1065
+set myMSG=Turn off the Error Dialog (2).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1066
+reg add "HKCU\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v "DontShowUI" /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v "DontShowUI" /t REG_DWORD /d 1 /f > nul 2>&1
 set /A PRun=%PRun%+1
-set /A PAct=%PAct%+1
+set /A PAct=%PAct%+2
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg11pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:reg11start
-set /p reg11="Disable jump lists? y/n: "
-if '%reg11%' == 'n' goto reg12start
-if /i "%reg11%" neq "y" goto reg11start
-:reg11pass
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackDocs" /t REG_DWORD /d 0 /f > nul 2>&1
+:1067
+set myMSG=Disable Administrative shares (2).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1068
+reg add "HKLM\System\CurrentControlSet\Services\LanmanServer\Parameters" /v "AutoShareWks" /t REG_DWORD /d 0 /f > nul 2>&1
+reg add "HKLM\System\CurrentControlSet\Services\LanmanServer\Parameters" /v "AutoShareServer" /t REG_DWORD /d 0 /f > nul 2>&1
 set /A PRun=%PRun%+1
-set /A PAct=%PAct%+1
+set /A PAct=%PAct%+2
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg12pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:reg12start
-set /p reg12="Remove telemetry and data collection (11)? y/n: "
-if '%reg12%' == 'n' goto reg13start
-if /i "%reg12%" neq "y" goto reg12start
-:reg12pass
+:1069
+set myMSG=Add "Reboot to Recovery" to right-click menu of "This PC" (4).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1070
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg add "HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell\Reboot to Recovery" /v "Icon" /t REG_SZ /d %SystemRoot%\System32\imageres.dll,-110" /f > nul 2>&1
+reg add "HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell\Reboot to Recovery\command" /ve /d "shutdown.exe -r -o -f -t 00" /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+4
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1071
+set myMSG=Change Clock and Date formats of current user to: 24H, metric (Sign out required to see changes) (6).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1072
+rem Apply to all users by using the key: HKLM\SYSTEM\CurrentControlSet\Control\CommonGlobUserSettings\Control Panel\International
+reg add "HKCU\Control Panel\International" /v "iMeasure" /t REG_SZ /d "0" /f > nul 2>&1
+reg add "HKCU\Control Panel\International" /v "iNegCurr" /t REG_SZ /d "1" /f > nul 2>&1
+reg add "HKCU\Control Panel\International" /v "iTime" /t REG_SZ /d "1" /f > nul 2>&1
+reg add "HKCU\Control Panel\International" /v "sShortDate" /t REG_SZ /d "yyyy/MM/dd" /f > nul 2>&1
+reg add "HKCU\Control Panel\International" /v "sShortTime" /t REG_SZ /d "HH:mm" /f > nul 2>&1
+reg add "HKCU\Control Panel\International" /v "sTimeFormat" /t REG_SZ /d "H:mm:ss" /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+6
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1073
+set myMSG=Enable Developer Mode (enables you to run XAML apps you develop in Visual Studio which haven't been certified yet) (2).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1074
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /v "AllowAllTrustedApps" /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /v "AllowDevelopmentWithoutDevLicense" /t REG_DWORD /d 1 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+2
+echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:1075
+set myMSG=Remove telemetry and data collection (14).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:1076
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata" /v PreventDeviceMetadataFromNetwork /t REG_DWORD /d 1 /f > nul 2>&1
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d 0 /f > nul 2>&1
 reg add "HKLM\SOFTWARE\Policies\Microsoft\MRT" /v DontOfferThroughWUAU /t REG_DWORD /d 1 /f > nul 2>&1
@@ -246,123 +780,22 @@ reg add "HKLM\COMPONENTS\DerivedData\Components\amd64_microsoft-windows-c..lemet
 reg add "HKLM\COMPONENTS\DerivedData\Components\amd64_microsoft-windows-c..lemetry.lib.cortana_31bf3856ad364e35_10.0.10240.16384_none_40ba2ec3d03bceb0" /v "f!proactive-telemetry.js" /t REG_DWORD /d 0 /f > nul 2>&1
 reg add "HKLM\COMPONENTS\DerivedData\Components\amd64_microsoft-windows-c..lemetry.lib.cortana_31bf3856ad364e35_10.0.10240.16384_none_40ba2ec3d03bceb0" /v "f!proactive-telemetry-event_8ac43a41e5030538" /t REG_DWORD /d 0 /f > nul 2>&1
 reg add "HKLM\COMPONENTS\DerivedData\Components\amd64_microsoft-windows-c..lemetry.lib.cortana_31bf3856ad364e35_10.0.10240.16384_none_40ba2ec3d03bceb0" /v "f!proactive-telemetry-inter_58073761d33f144b" /t REG_DWORD /d 0 /f > nul 2>&1
+
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger\AutoLogger-Diagtrack-Listener" /v "Start" /t REG_DWORD /d 0 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger\SQMLogger" /v "Start" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microsoft-Windows-Application-Experience/Program-Telemetry" /v "Enabled" /t REG_DWORD /d 0 /f
 set /A PRun=%PRun%+1
-set /A PAct=%PAct%+11
+set /A PAct=%PAct%+2
 echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg13pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:reg13start
-set /p reg13="Apply Internet Explorer 11 tweaks (12)? y/n: "
-if '%reg13%' == 'n' goto reg14start
-if /i "%reg13%" neq "y" goto reg13start
-:reg13pass
-reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "DoNotTrack" /t REG_DWORD /d 1 /f > nul 2>&1
-reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "Search Page" /t REG_SZ /d "http://www.google.com" /f > nul 2>&1
-reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "Start Page Redirect Cache" /t REG_SZ /d "http://www.google.com" /f > nul 2>&1
-reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "DisableFirstRunCustomize" /t REG_DWORD /d 1 /f > nul 2>&1
-reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "RunOnceHasShown" /t REG_DWORD /d 1 /f > nul 2>&1
-reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "RunOnceComplete" /t REG_DWORD /d 1 /f > nul 2>&1
-reg add "HKLM\SOFTWARE\Microsoft\Internet Explorer\Main" /v "DisableFirstRunCustomize" /t REG_DWORD /d 1 /f > nul 2>&1
-reg add "HKLM\SOFTWARE\Microsoft\Internet Explorer\Main" /v "RunOnceHasShown" /t REG_DWORD /d 1 /f > nul 2>&1
-reg add "HKLM\SOFTWARE\Microsoft\Internet Explorer\Main" /v "RunOnceComplete" /t REG_DWORD /d 1 /f > nul 2>&1
-reg add "HKCU\Software\Policies\Microsoft\Internet Explorer\Main" /v "DisableFirstRunCustomize" /t REG_DWORD /d 1 /f > nul 2>&1
-reg add "HKCU\Software\Policies\Microsoft\Internet Explorer\Main" /v "RunOnceHasShown" /t REG_DWORD /d 1 /f > nul 2>&1
-reg add "HKCU\Software\Policies\Microsoft\Internet Explorer\Main" /v "RunOnceComplete" /t REG_DWORD /d 1 /f > nul 2>&1
-set /A PRun=%PRun%+1
-set /A PAct=%PAct%+12
-echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg14pass
+:1077
+:1078
 
-:reg14start
-set /p reg14="Disable Cortana, Bing Search and Searchbar (4)? y/n: "
-if '%reg14%' == 'n' goto reg15start
-if /i "%reg14%" neq "y" goto reg14start
-:reg14pass
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d 0 /f > nul 2>&1
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "CortanaEnabled" /t REG_DWORD /d 0 /f > nul 2>&1
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d 0 /f > nul 2>&1
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "BingSearchEnabled" /t REG_DWORD /d 0 /f > nul 2>&1
-set /A PRun=%PRun%+1
-set /A PAct=%PAct%+4
-echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg15pass
-
-:reg15start
-set /p reg15="Change Logon screen background with accent color? y/n: "
-if '%reg15%' == 'n' goto reg16start
-if /i "%reg15%" neq "y" goto reg15start
-:reg15pass
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "DisableLogonBackgroundImage" /t REG_DWORD /d 1 /f > nul 2>&1
-set /A PRun=%PRun%+1
-set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg16pass
-
-:reg16start
-set /p reg16="Disable Windows Error Reporting? y/n: "
-if '%reg16%' == 'n' goto reg17start
-if /i "%reg16%" neq "y" goto reg16start
-:reg16pass
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "Disabled" /t REG_DWORD /d 1 /f > nul 2>&1
-set /A PRun=%PRun%+1
-set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg17pass
-
-:reg17start
-set /p reg17="Disable automatic Windows Updates? y/n: "
-if '%reg17%' == 'n' goto reg18start
-if /i "%reg17%" neq "y" goto reg17start
-:reg17pass
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update" /v "AUOptions" /t REG_DWORD /d 2 /f > nul 2>&1
-set /A PRun=%PRun%+1
-set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg18pass
-
-:reg18start
-set /p reg18="Disable Hibernation? y/n: "
-if '%reg18%' == 'n' goto reg19start
-if /i "%reg18%" neq "y" goto reg18start
-:reg18pass
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d 0 /f > nul 2>&1
-set /A PRun=%PRun%+1
-set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg19pass
-
-:reg19start
-set /p reg19="Replace Utilman with CMD (1)? y/n: "
-if '%reg19%' == 'n' goto reg20start
-if /i "%reg19%" neq "y" goto reg19start
-:reg19pass
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\utilman.exe" /v "Debugger" /t REG_SZ /d "cmd.exe" /f > nul 2>&1
-set /A PRun=%PRun%+1
-set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout /T 1 /NOBREAK > nul
-if '%registry%' == 'a' goto reg20pass
-
-:reg20start
-set /p reg20="Turn off the Error Dialog (2)? y/n: "
-if '%reg20%' == 'n' goto regend
-if /i "%reg20%" neq "y" goto reg20start
-:reg20pass
-reg add "HKCU\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v "DontShowUI" /t REG_DWORD /d 1 /f > nul 2>&1
-reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v "DontShowUI" /t REG_DWORD /d 1 /f > nul 2>&1
-set /A PRun=%PRun%+1
-set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Registry Tweaks. Total Actions %PAct%.
-timeout /T 1 /NOBREAK > nul
-
-:regend
+:1100
 echo.
 echo ###############################################################################
 echo #  1. Registry Tweaks  --  End                                                #
@@ -377,257 +810,333 @@ echo #  2. Removing Services  --  Start                                         
 echo ###############################################################################
 echo.
 
-:servstart
-set PMax=35
+:2000
+set /A Pline=2000
+set PMax=36
 set PRun=0
 rem set PAct=0
-set /p services="Removing Services (35)? y/n/a: "
-if '%services%' == 'n' goto servend
-if '%services%' == 'a' goto serv01pass
-if /i "%services%" neq "y" goto servstart
+echo Removing Services (%PMax%).
+set /p Pselect="Continue? y/n/a: "
+if '%Pselect%' == 'y' set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+2
+if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+goto %Pline%
 
-:serv01start
-set /p serv01="Disable Connected User Experiences and Telemetry (To turn off Telemetry and Data Collection)? y/n: "
-if '%serv01%' == 'n' goto serv02start
-if /i "%serv01%" neq "y" goto serv01start
-:serv01pass
+:2001
+set myMSG=Disable Connected User Experiences and Telemetry (To turn off Telemetry and Data Collection).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2002
 sc config DiagTrack start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv02pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv02start
-set /p serv02="Disable Diagnostic Policy Service? y/n: "
-if '%serv02%' == 'n' goto serv03start
-if /i "%serv02%" neq "y" goto serv02start
-:serv02pass
+:2003
+set myMSG=Disable Diagnostic Policy Service.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2004
 sc config DPS start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv03pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv03start
-set /p serv03="Disable Distributed Link Tracking Client (If your computer is not connected to any network)? y/n: "
-if '%serv03%' == 'n' goto serv04start
-if /i "%serv03%" neq "y" goto serv03start
-:serv03pass
+:2005
+set myMSG=Disable Distributed Link Tracking Client (If your computer is not connected to any network).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2006
 sc config TrkWks start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv04pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv04start
-set /p serv04="Disable WAP Push Message Routing Service (To turn off Telemetry and Data Collection)? y/n: "
-if '%serv04%' == 'n' goto serv05start
-if /i "%serv04%" neq "y" goto serv04start
-:serv04pass
+:2007
+set myMSG=Disable WAP Push Message Routing Service (To turn off Telemetry and Data Collection).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2008
 sc config dmwappushservice start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv05pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv05start
-set /p serv05="Disable Downloaded Maps Manager (If you don't use Maps app)? y/n: "
-if '%serv05%' == 'n' goto serv06start
-if /i "%serv05%" neq "y" goto serv05start
-:serv05pass
+:2009
+set myMSG=Disable Downloaded Maps Manager (If you don't use Maps app).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2010
 sc config MapsBroker start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv06pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv06start
-set /p serv06="Disable IP Helper (If you don't use IPv6 connection)? y/n: "
-if '%serv06%' == 'n' goto serv07start
-if /i "%serv06%" neq "y" goto serv06start
-:serv06pass
+:2011
+set myMSG=Disable IP Helper (If you don't use IPv6 connection).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2012
 sc config iphlpsvc start= Disabled > nul 2>&1 
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv07pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv07start
-set /p serv07="Disable Program Compatibility Assistant Service? y/n: "
-if '%serv07%' == 'n' goto serv08start
-if /i "%serv07%" neq "y" goto serv07start
-:serv07pass
+:2013
+set myMSG=Disable Program Compatibility Assistant Service.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2014
 sc config PcaSvc start= Disabled > nul 2>&1 
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv08pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv08start
-set /p serv08="Disable Print Spooler (If you don't have a printer)? y/n: "
-if '%serv08%' == 'n' goto serv09start
-if /i "%serv08%" neq "y" goto serv08start
-:serv08pass
+:2015
+set myMSG=Disable Print Spooler (If you don't have a printer).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2016
 sc config Spooler start= Disabled > nul 2>&1 
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv09pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv09start
-set /p serv09="Disable Remote Registry (You can set it to DISABLED for Security purposes)? y/n: "
-if '%serv09%' == 'n' goto serv10start
-if /i "%serv09%" neq "y" goto serv09start
-:serv09pass
+:2017
+set myMSG=Disable Remote Registry (You can set it to DISABLED for Security purposes).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2018
 sc config RemoteRegistry start= Disabled > nul 2>&1 
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv10pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv10start
-set /p serv10="Disable Secondary Logon? y/n: "
-if '%serv10%' == 'n' goto serv11start
-if /i "%serv10%" neq "y" goto serv10start
-:serv10pass
+:2019
+set myMSG=Disable Secondary Logon.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2020
 sc config seclogon start= Disabled > nul 2>&1 	
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv11pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv11start
-set /p serv11="Disable Security Center? y/n: "
-if '%serv11%' == 'n' goto serv12start
-if /i "%serv11%" neq "y" goto serv11start
-:serv11pass
+:2021
+set myMSG=Disable Security Center.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2022
 sc config wscsvc start= Disabled > nul 2>&1 
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv12pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv12start
-set /p serv12="Disable TCP/IP NetBIOS Helper (If you are not in a workgroup network)? y/n: "
-if '%serv12%' == 'n' goto serv13start
-if /i "%serv12%" neq "y" goto serv12start
-:serv12pass
+:2023
+set myMSG=Disable TCP/IP NetBIOS Helper (If you are not in a workgroup network).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2024
 sc config lmhosts start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv13pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv13start
-set /p serv13="Disable Touch Keyboard and Handwriting Panel Service (If you don't want to use touch keyboard and handwriting features)? y/n: "
-if '%serv13%' == 'n' goto serv14start
-if /i "%serv13%" neq "y" goto serv13start
-:serv13pass
+:2025
+set myMSG=Disable Touch Keyboard and Handwriting Panel Service (If you don't want to use touch keyboard and handwriting features.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2026
 sc config TabletInputService start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv14pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv14start
-set /p serv14="Disable Windows Error Reporting Service? y/n: "
-if '%serv14%' == 'n' goto serv15start
-if /i "%serv14%" neq "y" goto serv14start
-:serv14pass
+:2027
+set myMSG=Disable Windows Error Reporting Service.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2028
 sc config WerSvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv15pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv15start
-set /p serv15="Disable Windows Image Acquisition (WIA) (If you don't have a scanner)? y/n: "
-if '%serv15%' == 'n' goto serv16start
-if /i "%serv15%" neq "y" goto serv15start
-:serv15pass
+:2029
+set myMSG=Disable Windows Image Acquisition (WIA) (If you don't have a scanner).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2030
 sc config stisvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv16pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv16start
-set /p serv16="Disable Windows Search? y/n: "
-if '%serv16%' == 'n' goto serv17start
-if /i "%serv16%" neq "y" goto serv16start
-:serv16pass
+:2031
+set myMSG=Disable Windows Search.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2032
 sc config WSearch start= Disabled > nul 2>&1
-del "C:\ProgramData\Microsoft\Search\Data\Applications\Windows\Windows.edb" /s > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv17pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv17start
-set /p serv17="Disable tracking services (2)? y/n: "
-if '%serv17%' == 'n' goto serv18start
-if /i "%serv17%" neq "y" goto serv17start
-:serv17pass
+:2033
+set myMSG=Disable tracking services (2).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2034
 sc config diagnosticshub.standardcollector.service start= Disabled > nul 2>&1
 sc config WMPNetworkSvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+2
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv18pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv18start
-set /p serv18="Disable Superfetch? y/n: "
-if '%serv18%' == 'n' goto serv19start
-if /i "%serv18%" neq "y" goto serv18start
-:serv18pass
+:2035
+set myMSG=Disable Superfetch.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2036
 sc config SysMain start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv19pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv19start
-set /p serv19="Disable Windows Defender (8)? y/n: "
-if '%serv19%' == 'n' goto serv20start
-if /i "%serv19%" neq "y" goto serv19start
-:serv19pass
-sc config WinDefend start= Disabled > nul 2>&1
-sc config WdNisSvc start= Disabled > nul 2>&1
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t REG_DWORD /d 1 /f > nul 2>&1
-schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance" /Disable > nul 2>&1
-schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cleanup" /Disable > nul 2>&1
-schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan" /Disable > nul 2>&1
-schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Verification" /Disable > nul 2>&1
-del "C:\ProgramData\Microsoft\Windows Defender\Scans\mpcache*" /s > nul 2>&1
-set /A PRun=%PRun%+1
-set /A PAct=%PAct%+8
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
-timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv20pass
-
-:serv20start
-set /p serv20="Disable Xbox Services (5)? y/n: "
-if '%serv20%' == 'n' goto serv21start
-if /i "%serv20%" neq "y" goto serv20start
-:serv20pass
+:2037
+set myMSG=Disable Xbox Services (5).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2038
 rem Xbox Accessory Management Service
 sc config XboxGipSvc start= Disabled > nul 2>&1
 rem Xbox Game Monitoring
@@ -640,127 +1149,177 @@ rem Xbox Live Networking Service
 sc config XboxNetApiSvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+5
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv21pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv21start
-set /p serv21="Disable AllJoyn Router Service? y/n: "
-if '%serv21%' == 'n' goto serv22start
-if /i "%serv21%" neq "y" goto serv21start
-:serv21pass
+:2039
+set myMSG=Disable AllJoyn Router Service.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2040
 rem  This service is used for routing the AllJoyn messages for AllJoyn clients.
 sc config AJRouter start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv22pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv22start
-set /p serv22="Disable Bluetooth Services (2)? y/n: "
-if '%serv22%' == 'n' goto serv23start
-if /i "%serv22%" neq "y" goto serv22start
-:serv22pass
+:2041
+set myMSG=Disable Bluetooth Services (2).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2042
 rem Bluetooth Handsfree Service
 sc config BthHFSrv start= Disabled > nul 2>&1
 rem Bluetooth Support Service
 sc config bthserv start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+2
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv23pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv23start
-set /p serv23="Disable Geolocation Service? y/n: "
-if '%serv23%' == 'n' goto serv24start
-if /i "%serv23%" neq "y" goto serv23start
-:serv23pass
+:2043
+set myMSG=Disable Geolocation Service.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2044
 sc config lfsvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv24pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv24start
-set /p serv24="Disable Phone Service? y/n: "
-if '%serv24%' == 'n' goto serv25start
-if /i "%serv24%" neq "y" goto serv24start
-:serv24pass
+:2045
+set myMSG=Disable Phone Service.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2046
 sc config PhoneSvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv25pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv25start
-set /p serv25="Disable Windows Biometric Service? y/n: "
-if '%serv25%' == 'n' goto serv26start
-if /i "%serv25%" neq "y" goto serv25start
-:serv25pass
+:2047
+set myMSG=Disable Windows Biometric Service.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2048
 sc config WbioSrvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv26pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv26start
-set /p serv26="Disable Windows Mobile Hotspot Service? y/n: "
-if '%serv26%' == 'n' goto serv27start
-if /i "%serv26%" neq "y" goto serv26start
-:serv26pass
+:2049
+set myMSG=Disable Windows Mobile Hotspot Service.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2050
 sc config icssvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv27pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv27start
-set /p serv27="Disable Windows Media Player Network Sharing Service? y/n: "
-if '%serv27%' == 'n' goto serv28start
-if /i "%serv27%" neq "y" goto serv27start
-:serv27pass
+:2051
+set myMSG=Disable Windows Media Player Network Sharing Service.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2052
 sc config WMPNetworkSvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv28pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv28start
-set /p serv28="Disable Windows Update Service? y/n: "
-if '%serv28%' == 'n' goto serv29start
-if /i "%serv28%" neq "y" goto serv28start
-:serv28pass
+:2053
+set myMSG=Disable Windows Update Service.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2054
 sc config wuauserv start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv29pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv29start
-set /p serv29="Disable Enterprise App Management Service? y/n: "
-if '%serv29%' == 'n' goto serv30start
-if /i "%serv29%" neq "y" goto serv29start
-:serv29pass
+:2055
+set myMSG=Disable Enterprise App Management Service.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2056
 sc config EntAppSvc start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv30pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv30start
-set /p serv30="Disable Hyper-V Services (9)? y/n: "
-if '%serv30%' == 'n' goto servend
-if /i "%serv30%" neq "y" goto serv30start
-:serv30pass
+:2057
+set myMSG=Disable Hyper-V Services (9).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2058
 rem HV Host Service
 sc config HvHost start= Disabled > nul 2>&1
 rem Hyper-V Data Exchange Service
@@ -781,70 +1340,140 @@ rem Hyper-V Volume Shadow Copy Requestor
 sc config vmicvss start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+9
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv31pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv31start
-set /p serv31="Disable HomeGroup Listener? y/n: "
-if '%serv31%' == 'n' goto serv32start
-if /i "%serv31%" neq "y" goto serv31start
-:serv31pass
+:2059
+set myMSG=Disable HomeGroup Listener.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2060
 sc config HomeGroupListener start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv32pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv32start
-set /p serv32="Disable HomeGroup Provider? y/n: "
-if '%serv32%' == 'n' goto serv33start
-if /i "%serv32%" neq "y" goto serv32start
-:serv32pass
+:2061
+set myMSG=Disable HomeGroup Provider.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2062
 sc config HomeGroupProvider start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv33pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv33start
-set /p serv33="Disable Net.Tcp Port Sharing Service? y/n: "
-if '%serv33%' == 'n' goto serv34start
-if /i "%serv33%" neq "y" goto serv33start
-:serv33pass
+:2063
+set myMSG=Disable Net.Tcp Port Sharing Service.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2064
 sc config NetTcpPortSharing start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv34pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv34start
-set /p serv34="Disable Routing and Remote Access? y/n: "
-if '%serv34%' == 'n' goto serv35start
-if /i "%serv34%" neq "y" goto serv34start
-:serv34pass
+:2065
+set myMSG=Disable Routing and Remote Access.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2066
 sc config RemoteAccess start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
-if '%services%' == 'a' goto serv35pass
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:serv35start
-set /p serv35="Disable Internet Connection Sharing (ICS)? y/n: "
-if '%serv35%' == 'n' goto servend
-if /i "%serv35%" neq "y" goto serv35start
-:serv35pass
+:2067
+set myMSG=Disable Internet Connection Sharing (ICS).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2068
 sc config RemoteAccess start= Disabled > nul 2>&1
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+1
-echo Done %PRun% / %PMax% Removing Services. Total Actions %PAct%.
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
 
-:servend
+:2069
+set myMSG=Disable Superfetch (A must for SSD drives, but good to do in general)(3).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2070
+rem Disabling this service prevents further creation of PF files in C:\Windows\Prefetch.
+rem After disabling this service, it is completely safe to delete everything in that folder, except for the ReadyBoot folder.
+sc config SysMain start= disabled
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v "EnableSuperfetch" /t REG_DWORD /d 0 /f > nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v "EnablePrefetcher" /t REG_DWORD /d 0 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+3
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:2071
+set myMSG=Disable Action Center & Security Center.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:2072
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell" /v "UseActionCenterExperience" /t REG_DWORD /d 0 /f
+sc config wscsvc start= disabled
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+2
+echo Done %PRun% / %PMax% Services Remove. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:2073
+:2074
+
+:2100
 echo.
 echo ###############################################################################
 echo #  2. Removing Services  --  End                                              #
@@ -859,29 +1488,41 @@ echo #  3. Removing Scheduled Tasks  --  Start                                  
 echo ###############################################################################
 echo.
 
-:schedstart
+:3000
+set /A Pline=3000
 set PMax=1
 set PRun=0
 rem set PAct=0
-set /p schedules="Removing scheduled tasks (8)? y/n: "
-if '%schedules%' == 'n' goto schedend
-if /i "%schedules%" neq "y" goto schedstart
+echo Removing scheduled tasks (17).
+set /p Pselect="Continue? y/n: "
+if '%Pselect%' == 'y' set /A Pline=%Pline%+1
+if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+goto %Pline%
 
+:3001
 schtasks /Change /TN "Microsoft\Windows\AppID\SmartScreenSpecific" /Disable > nul 2>&1
 schtasks /Change /TN "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /Disable > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\Application Experience\ProgramDataUpdater" /Disable > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\Application Experience\StartupAppTask" /Disable > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\Autochk\Proxy" /Disable > nul 2>&1
 schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /Disable > nul 2>&1
 schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask" /Disable > nul 2>&1
 schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" /Disable > nul 2>&1
 schtasks /Change /TN "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /Disable > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\FileHistory\File History (maintenance mode)" /Disable > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\Maintenance\WinSAT" /Disable > nul 2>&1
 schtasks /Change /TN "Microsoft\Windows\NetTrace\GatherNetworkInfo" /Disable > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\PI\Sqm-Tasks" /Disable > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\Time Synchronization\ForceSynchronizeTime" /Disable > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\Time Synchronization\SynchronizeTime" /Disable > nul 2>&1
 schtasks /Change /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting" /Disable > nul 2>&1
-
+schtasks /Change /TN "Microsoft\Windows\WindowsUpdate\Automatic App Update" /Disable > nul 2>&1
 set /A PRun=%PRun%+1
-set /A PAct=%PAct%+8
+set /A PAct=%PAct%+17
 echo Done %PRun% / %PMax% Removing Scheduled Tasks. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
 
-:schedend
+:3100
 echo.
 echo ###############################################################################
 echo #  3. Removing Scheduled Tasks  --  End                                       #
@@ -896,14 +1537,18 @@ echo #  4. Removing Windows Default Apps  --  Start                             
 echo ###############################################################################
 echo.
 
-:winappstart
+:4000
+set /A Pline=4000
 set PMax=1
 set PRun=0
 rem set PAct=0
-set /p winapps="Removing Windows default apps (12)? y/n: "
-if '%winapps%' == 'n' goto winappend
-if /i "%winapps%" neq "y" goto winappstart
+echo Removing Windows default apps (12).
+set /p Pselect="Continue? y/n: "
+if '%Pselect%' == 'y' set /A Pline=%Pline%+1
+if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+goto %Pline%
 
+:4001
 powershell "Get-AppxPackage *3d* | Remove-AppxPackage" > nul 2>&1
 powershell "Get-AppxPackage *bing* | Remove-AppxPackage" > nul 2>&1
 powershell "Get-AppxPackage *zune* | Remove-AppxPackage" > nul 2>&1
@@ -916,13 +1561,12 @@ powershell "Get-AppxPackage *camera* | Remove-AppxPackage" > nul 2>&1
 powershell "Get-AppxPackage *people* | Remove-AppxPackage" > nul 2>&1
 powershell "Get-AppxPackage *office* | Remove-AppxPackage" > nul 2>&1
 powershell "Get-AppxPackage *xbox* | Remove-AppxPackage" > nul 2>&1
-
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+12
 echo Done %PRun% / %PMax% Removing Windows Default Apps. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
 
-:winappend
+:4100
 echo.
 echo ###############################################################################
 echo #  4. Removing Windows Default Apps  --  End                                  #
@@ -937,26 +1581,35 @@ echo #  5. Disable / Remove OneDrive  --  Start                                 
 echo ###############################################################################
 echo.
 
-:odrivestart
+:5000
+set /A Pline=5000
 set PMax=1
 set PRun=0
 rem set PAct=0
-set /p onedrive="Disable OneDrive (3)? y/n: "
-if '%onedrive%' == 'n' goto odriveend
-if /i "%onedrive%" neq "y" goto odrivestart
+echo Disable OneDrive (7).
+set /p Pselect="Continue? y/n: "
+if '%Pselect%' == 'y' set /A Pline=%Pline%+1
+if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+goto %Pline%
 
+:5001
 reg add "HKLM\Software\Policies\Microsoft\Windows\OneDrive" /v DisableFileSyncNGSC /t REG_DWORD /d 1 /f > nul 2>&1
 
+reg delete "HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f > nul 2>&1
+reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f > nul 2>&1
+reg delete "HKCU\SOFTWARE\Classes\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f > nul 2>&1
+reg delete "HKCU\SOFTWARE\Classes\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f > nul 2>&1
+
 :: Detete OneDrive icon on explorer.exe (Only 64 Bits)
-reg add "HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /t reg_DWORD /d 0 /f
-reg add "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /t reg_DWORD /d 0 /f
+reg add "HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /t reg_DWORD /d 0 /f > nul 2>&1
+reg add "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /t reg_DWORD /d 0 /f > nul 2>&1
 
 set /A PRun=%PRun%+1
-set /A PAct=%PAct%+3
+set /A PAct=%PAct%+7
 echo Done %PRun% / %PMax% Disable / Remove OneDrive. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
 
-:odriveend
+:5100
 echo.
 echo ###############################################################################
 echo #  5. Disable / Remove OneDrive  --  End                                      #
@@ -971,14 +1624,18 @@ echo #  6. Blocking Telemetry Servers  --  Start                                
 echo ###############################################################################
 echo.
 
-:hoststart
+:6000
+set /A Pline=6000
 set PMax=1
 set PRun=0
 rem set PAct=0
-set /p hostsblock="Blocking Telemetry Servers (25)? y/n: "
-if '%hostsblock%' == 'n' goto hostend
-if /i "%hostsblock%" neq "y" goto hoststart
+echo Blocking Telemetry Servers (25).
+set /p Pselect="Continue? y/n: "
+if '%Pselect%' == 'y' set /A Pline=%Pline%+1
+if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+goto %Pline%
 
+:6001
 copy "%WINDIR%\system32\drivers\etc\hosts" "%WINDIR%\system32\drivers\etc\hosts.bak" > nul 2>&1
 attrib -r "%WINDIR%\system32\drivers\etc\hosts" > nul 2>&1
 find /C /I "choice.microsoft.com" %WINDIR%\system32\drivers\etc\hosts	
@@ -1038,7 +1695,7 @@ set /A PAct=%PAct%+25
 echo Done %PRun% / %PMax% Blocking Telemetry Servers. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
 
-:hostend
+:6100
 echo.
 echo ###############################################################################
 echo #  6. Blocking Telemetry Servers  --  End                                     #
@@ -1053,14 +1710,18 @@ echo #  7. Blocking More Windows Servers  --  Start                             
 echo ###############################################################################
 echo.
 
-:morehoststart
+:7000
+set /A Pline=7000
 set PMax=1
 set PRun=0
 rem set PAct=0
-set /p morehostsblock="Blocking Telemetry Servers (109)? y/n: "
-if '%morehostsblock%' == 'n' goto morehostend
-if /i "%morehostsblock%" neq "y" goto morehoststart
+echo Blocking More Telemetry Servers (109).
+set /p Pselect="Continue? y/n: "
+if '%Pselect%' == 'y' set /A Pline=%Pline%+1
+if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+goto %Pline%
 
+:7001
 copy "%WINDIR%\system32\drivers\etc\hosts" "%WINDIR%\system32\drivers\etc\hosts.bak" > nul 2>&1
 attrib -r "%WINDIR%\system32\drivers\etc\hosts" > nul 2>&1
 find /C /I "184-86-53-99.deploy.static.akamaitechnologies.com" %WINDIR%\system32\drivers\etc\hosts	
@@ -1289,7 +1950,7 @@ set /A PAct=%PAct%+109
 echo Done %PRun% / %PMax% Blocking More Windows Servers. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
 
-:morehostend
+:7100
 echo.
 echo ###############################################################################
 echo #  7. Blocking More Windows Servers  --  End                                  #
@@ -1304,14 +1965,18 @@ echo #  8. Disable Windows Error Recovery on Startup   --  Start                
 echo ###############################################################################
 echo.
 
-:errorrecoverystart
+:8000
+set /A Pline=8000
 set PMax=1
 set PRun=0
 rem set PAct=0
-set /p errorrecovery="Disable Windows Error Recovery on Startup (2)? y/n: "
-if '%errorrecovery%' == 'n' goto errorrecoveryend
-if /i "%errorrecovery%" neq "y" goto errorrecoverystart
+echo Disable Windows Error Recovery on Startup (2).
+set /p Pselect="Continue? y/n: "
+if '%Pselect%' == 'y' set /A Pline=%Pline%+1
+if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+goto %Pline%
 
+:8001
 bcdedit /set recoveryenabled NO > nul 2>&1
 bcdedit /set {current} bootstatuspolicy ignoreallfailures > nul 2>&1
 
@@ -1320,10 +1985,657 @@ set /A PAct=%PAct%+2
 echo Done %PRun% / %PMax% Disable Windows Error Recovery on Startup. Total Actions %PAct%.
 timeout /T 1 /NOBREAK > nul
 
-:errorrecoveryend
+:8100
 echo.
 echo ###############################################################################
-echo #  8. Disable Windows Error Recovery on Startup   --  End                     #
+echo #  8. Disable Windows Error Recovery on Startup  --  End                      #
+echo ###############################################################################
+echo.
+
+rem ========== 9. Internet Explorer 11 Tweaks ==========
+
+echo.
+echo ###############################################################################
+echo #  9. Internet Explorer 11 Tweaks  --  Start                                  #
+echo ###############################################################################
+echo.
+
+:9000
+set /A Pline=9000
+set PMax=3
+set PRun=0
+rem set PAct=0
+echo Internet Explorer 11 Tweaks.
+set /p Pselect="Continue? y/n: "
+if '%Pselect%' == 'y' set /A Pline=%Pline%+1
+if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+goto %Pline%
+
+:9001
+set myMSG=Internet Explorer 11 Tweaks (Basic)(15).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:9002
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "DoNotTrack" /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "Search Page" /t REG_SZ /d "http://www.google.com" /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "Start Page Redirect Cache" /t REG_SZ /d "http://www.google.com" /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "DisableFirstRunCustomize" /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "RunOnceHasShown" /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "RunOnceComplete" /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\Internet Explorer\Main" /v "DisableFirstRunCustomize" /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\Internet Explorer\Main" /v "RunOnceHasShown" /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\Internet Explorer\Main" /v "RunOnceComplete" /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKCU\Software\Policies\Microsoft\Internet Explorer\Main" /v "DisableFirstRunCustomize" /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKCU\Software\Policies\Microsoft\Internet Explorer\Main" /v "RunOnceHasShown" /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKCU\Software\Policies\Microsoft\Internet Explorer\Main" /v "RunOnceComplete" /t REG_DWORD /d 1 /f > nul 2>&1
+
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "PlaySounds" /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "Isolation" /t REG_SZ /d PMEM /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Main" /v "Isolation64Bit" /t REG_DWORD /d 1 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+15
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:9003
+set myMSG=Disable IE Suggested Sites & Flip ahead (page prediction which sends browsing history to Microsoft).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:9004
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Suggested Sites" /v "Enabled" /t REG_DWORD /d 0 /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\Suggested Sites" /v "DataStreamEnabledState" /t REG_DWORD /d 0 /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\FlipAhead" /v "FPEnabled" /t REG_DWORD /d 0 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+3
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:9005
+set myMSG=Add Google as search provider for IE11, and make it the default (11).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:9006
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\SearchScopes\{89418666-DF74-4CAC-A2BD-B69FB4A0228A}" /f  > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\SearchScopes\{89418666-DF74-4CAC-A2BD-B69FB4A0228A}" /v "DisplayName" /t REG_SZ /d "Google" /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\SearchScopes\{89418666-DF74-4CAC-A2BD-B69FB4A0228A}" /v "FaviconURL" /t REG_SZ /d "http://www.google.com/favicon.ico" /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\SearchScopes\{89418666-DF74-4CAC-A2BD-B69FB4A0228A}" /v "FaviconURLFallback" /t REG_SZ /d "http://www.google.com/favicon.ico" /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\SearchScopes\{89418666-DF74-4CAC-A2BD-B69FB4A0228A}" /v "OSDFileURL" /t REG_SZ /d "http://www.iegallery.com/en-us/AddOns/DownloadAddOn?resourceId=813" /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\SearchScopes\{89418666-DF74-4CAC-A2BD-B69FB4A0228A}" /v "ShowSearchSuggestions" /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\SearchScopes\{89418666-DF74-4CAC-A2BD-B69FB4A0228A}" /v "SuggestionsURL" /t REG_SZ /d "http://clients5.google.com/complete/search?q={searchTerms}&client=ie8&mw={ie:maxWidth}&sh={ie:sectionHeight}&rh={ie:rowHeight}&inputencoding={inputEncoding}&outputencoding={outputEncoding}" /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\SearchScopes\{89418666-DF74-4CAC-A2BD-B69FB4A0228A}" /v "SuggestionsURLFallback" /t REG_SZ /d "http://clients5.google.com/complete/search?hl={language}&q={searchTerms}&client=ie8&inputencoding={inputEncoding}&outputencoding={outputEncoding}" /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\SearchScopes\{89418666-DF74-4CAC-A2BD-B69FB4A0228A}" /v "TopResultURLFallback" /t REG_SZ /d "" /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\SearchScopes\{89418666-DF74-4CAC-A2BD-B69FB4A0228A}" /v "URL" /t REG_SZ /d "http://www.google.com/search?q={searchTerms}&sourceid=ie7&rls=com.microsoft:{language}:{referrer:source}&ie={inputEncoding?}&oe={outputEncoding?}" /f > nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Internet Explorer\SearchScopes" /v "DefaultScope" /t REG_SZ /d "{89418666-DF74-4CAC-A2BD-B69FB4A0228A}" /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+11
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:9007
+:9008
+
+:9100
+echo.
+echo ###############################################################################
+echo #  9. Internet Explorer 11 Tweaks  --  End                                    #
+echo ###############################################################################
+echo.
+
+rem ========== 10. Libraries Tweaks ==========
+
+echo.
+echo ###############################################################################
+echo #   10. Libraries Tweaks  --  Start                                           #
+echo ###############################################################################
+echo.
+
+:10000
+set /A Pline=10000
+set PMax=8
+set PRun=0
+rem set PAct=0
+echo Libraries Tweaks.
+set /p Pselect="Continue? y/n: "
+if '%Pselect%' == 'y' set /A Pline=%Pline%+1
+if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+goto %Pline%
+
+:10001
+set myMSG=Remove Music, Pictures & Videos from Start Menu places (Settings > Personalization > Start > Choose which folders appear on Start)(3).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:10002
+del "C:\ProgramData\Microsoft\Windows\Start Menu Places\05 - Music.lnk"
+del "C:\ProgramData\Microsoft\Windows\Start Menu Places\06 - Pictures.lnk"
+del "C:\ProgramData\Microsoft\Windows\Start Menu Places\07 - Videos.lnk"
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+3
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:10003
+set myMSG=Remove Music, Pictures & Videos from Libraries (3).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:10004
+del "%userprofile%\AppData\Roaming\Microsoft\Windows\Libraries\Music.library-ms"
+del "%userprofile%\AppData\Roaming\Microsoft\Windows\Libraries\Pictures.library-ms"
+del "%userprofile%\AppData\Roaming\Microsoft\Windows\Libraries\Videos.library-ms"
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+3
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:10005
+set myMSG=Remove Libraries (60).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:10006
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\UsersLibraries" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{59BD6DD1-5CEC-4d7e-9AD2-ECC64154418D}" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{C4D98F09-6124-4fe0-9942-826416082DA9}" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{59BD6DD1-5CEC-4d7e-9AD2-ECC64154418D}" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{C4D98F09-6124-4fe0-9942-826416082DA9}" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\UsersLibraries" /f
+reg delete "HKCU\SOFTWARE\Classes\Local Settings\MuiCache\1\52C64B7E" /v "@C:\Windows\system32\windows.storage.dll,-50691" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{e9711a2f-350f-4ec1-8ebd-21245a8b9376}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{e9711a2f-350f-4ec1-8ebd-21245a8b9376}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\CLSID\{e9711a2f-350f-4ec1-8ebd-21245a8b9376}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" /f
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+60
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:10007
+set myMSG=Remove "Show Libraries" from Folder Options -> View tab (Advanced Settings).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:10008
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\NavPane\ShowLibraries" /f
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:10009
+set myMSG=Remove Music (appears under This PC in File Explorer)(28).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:10010
+reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "My Music" /f
+reg delete "HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "My Music" /f
+reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "My Music" /f
+reg delete "HKEY_CLASSES_ROOT\SystemFileAssociations\MyMusic" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "CommonMusic" /f
+reg delete "HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "My Music" /f
+reg delete "HKEY_USERS\S-1-5-19\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "My Music" /f
+reg delete "HKEY_USERS\S-1-5-20\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "My Music" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "CommonMusic" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "CommonMusic" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "CommonMusic" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{3f2a72a7-99fa-4ddb-a5a8-c604edf61d6b}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" /f
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" /f
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+28
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:10011
+set myMSG=Remove Pictures (appears under This PC in File Explorer) (41).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:10012
+reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "My Pictures" /f
+reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "My Pictures" /f
+reg delete "HKEY_CLASSES_ROOT\SystemFileAssociations\MyPictures" /f
+reg delete "HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "My Pictures" /f
+reg delete "HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "My Pictures" /f
+reg delete "HKEY_USERS\.DEFAULT\Software\Classes\Local Settings\MuiCache\1\52C64B7E" /v "@C:\Windows\System32\Windows.UI.Immersive.dll,-38304" /f
+reg delete "HKEY_USERS\S-1-5-19\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "My Pictures" /f
+reg delete "HKEY_USERS\S-1-5-20\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "My Pictures" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "CommonPictures" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{0b2baaeb-0042-4dca-aa4d-3ee8648d03e5}" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\StartMenu\StartPanel\PinnedItems\Pictures" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "CommonPictures" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" /f
+
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{c1f8339f-f312-4c97-b1c6-ecdf5910c5c0}" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{0b2baaeb-0042-4dca-aa4d-3ee8648d03e5}" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{4dcafe13-e6a7-4c28-be02-ca8c2126280d}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" /f
+
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{c1f8339f-f312-4c97-b1c6-ecdf5910c5c0}" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "CommonPictures" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "CommonPictures" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" /f
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+41
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:10013
+set myMSG=Remove Videos (appears under This PC in File Explorer) (29).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:10014
+reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "My Video" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "CommonVideo" /f
+reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "My Video" /f
+reg delete "HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "My Video" /f
+reg delete "HKEY_CLASSES_ROOT\SystemFileAssociations\MyVideo" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "CommonVideo" /f
+reg delete "HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "My Video" /f
+reg delete "HKEY_USERS\S-1-5-19\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "My Video" /f
+reg delete "HKEY_USERS\S-1-5-20\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "My Video" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "CommonVideo" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{51294DA1-D7B1-485b-9E9A-17CFFE33E187}" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{ea25fbd7-3bf7-409e-b97f-3352240903f4}" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{292108be-88ab-4f33-9a26-7748e62e37ad}" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{5fa96407-7e77-483c-ac93-691d05850de8}" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "CommonVideo" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{51294DA1-D7B1-485b-9E9A-17CFFE33E187}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" /f
+
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" /f
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+29
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:10015
+set myMSG=Remove Pictures, Music, Videos from MUIcache (5).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:10016
+reg delete "HKCU\SOFTWARE\Classes\Local Settings\MuiCache\1\52C64B7E" /v "@windows.storage.dll,-21790" /f
+reg delete "HKCU\SOFTWARE\Classes\Local Settings\MuiCache\1\52C64B7E" /v "@windows.storage.dll,-34584" /f
+reg delete "HKCU\SOFTWARE\Classes\Local Settings\MuiCache\1\52C64B7E" /v "@windows.storage.dll,-34595" /f
+reg delete "HKCU\SOFTWARE\Classes\Local Settings\MuiCache\1\52C64B7E" /v "@windows.storage.dll,-34620" /f
+reg delete "HKEY_USERS\.DEFAULT\Software\Classes\Local Settings\MuiCache\1\52C64B7E" /v "@windows.storage.dll,-21790" /f
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+5
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:10017
+:10018
+
+:10100
+echo.
+echo ###############################################################################
+echo #  10. Libraries Tweaks  --  End                                              #
+echo ###############################################################################
+echo.
+
+
+rem ========== 11. Windows Update Tweaks ==========
+
+echo.
+echo ###############################################################################
+echo #  11. Windows Update Tweaks --  Start                                        #
+echo ###############################################################################
+echo.
+
+:11000
+set /A Pline=11000
+set PMax=4
+set PRun=0
+rem set PAct=0
+echo Windows Update Tweaks.
+set /p Pselect="Continue? y/n: "
+if '%Pselect%' == 'y' set /A Pline=%Pline%+1
+if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+goto %Pline%
+
+:11001
+set myMSG=Windows Update - Notify first.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:11002
+net stop wuauserv > nul 2>&1
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "AutoInstallMinorUpdates" /t REG_DWORD /d 0 /f > nul 2>&1
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v AUOptions /t REG_DWORD /d 2 /f > nul 2>&1
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 0 /f > nul 2>&1
+net start wuauserv > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+5
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:11003
+set myMSG=Change how Windows Updates are delivered - allow only directly from Microsoft.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:11004
+rem 0 = Off (only directly from Microsoft)
+rem 1 = Get updates from Microsoft and PCs on your local network
+rem 3 = Get updates from Microsoft, PCs on your local network & PCs on the Internet (like how torrents work)
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" /v "DODownloadMode" /t REG_DWORD /d 0 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:11005
+set myMSG=Disable Windows Update sharing (2).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:11006
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" /v "DownloadMode" /t REG_DWORD /d 0 /f > nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" /v "DODownloadMode" /t REG_DWORD /d 0 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+2
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:11007
+set myMSG=Disable automatic Windows Updates.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:11008
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update" /v "AUOptions" /t REG_DWORD /d 2 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:11009
+:11010
+
+:11100
+echo.
+echo ###############################################################################
+echo #  11. Windows Update Tweaks  --  End                                         #
+echo ###############################################################################
+echo.
+
+
+rem ========== 12. Windows Defender Tweaks ==========
+
+echo.
+echo ###############################################################################
+echo #  12. Windows Defender Tweaks --  Start                                      #
+echo ###############################################################################
+echo.
+
+:12000
+set /A Pline=12000
+set PMax=2
+set PRun=0
+rem set PAct=0
+echo Windows Defender Tweaks.
+set /p Pselect="Continue? y/n: "
+if '%Pselect%' == 'y' set /A Pline=%Pline%+1
+if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+goto %Pline%
+
+:12001
+set myMSG=Don't allow Windows Defender to submit samples to MAPS (formerly SpyNet) (4).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:12002
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" /v "SpyNetReporting" /t REG_DWORD /d 0 /f > nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" /v "SubmitSamplesConsent" /t REG_DWORD /d 0 /f > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+4
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:12003
+set myMSG=Disable Windows Defender (8).
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:12004
+sc config WinDefend start= Disabled > nul 2>&1
+sc config WdNisSvc start= Disabled > nul 2>&1
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t REG_DWORD /d 1 /f > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance" /Disable > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cleanup" /Disable > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan" /Disable > nul 2>&1
+schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Verification" /Disable > nul 2>&1
+del "C:\ProgramData\Microsoft\Windows Defender\Scans\mpcache*" /s > nul 2>&1
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+4
+echo Done %PRun% / %PMax%. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:12005
+:12006
+
+:12100
+echo.
+echo ###############################################################################
+echo #  12. Windows Defender Tweaks  --  End                                       #
 echo ###############################################################################
 echo.
 
@@ -1338,7 +2650,7 @@ echo #                                                                          
 echo #  AUTHOR: DeadManWalking  (DeadManWalkingTO-GitHub)                          #
 echo #                                                                             #
 echo ###############################################################################
-echo Total Actions %PAct%.
+echo #  Total Actions %PAct%.
 echo ###############################################################################
 echo #                                                                             #
 echo #  Finish. Ready for mining!                                                  #
