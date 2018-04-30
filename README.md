@@ -37,6 +37,10 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy
 6. Blocking Telemetry Servers
 7. Blocking More Windows Servers
 8. Disable Windows Error Recovery on Startup
+9. Internet Explorer 11 Tweaks
+10. Libraries Tweaks.
+11. Windows Update Tweaks.
+12. Windows Defender Tweaks.
 
 ## Download
 Download [Last release here.](../../releases/latest)
