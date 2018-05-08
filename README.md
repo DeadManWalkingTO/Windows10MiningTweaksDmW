@@ -4,13 +4,18 @@
 [![GitHub Release Date](https://img.shields.io/github/release-date-pre/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../releases/latest)
 [![GitHub top language](https://img.shields.io/github/languages/top/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../)
 [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../)
-[![GitHub license](https://img.shields.io/github/license/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](./LICENSE)
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../)
 [![Github commits (since latest release)](https://img.shields.io/github/commits-since/DeadManWalkingTO/Windows10MiningTweaksDmW/latest.svg)](../../)
 [![GitHub stars](https://img.shields.io/github/stars/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../network)
+[![GitHub issues](https://img.shields.io/github/issues/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../issues)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../issues)
+
+[![DMCA Protection](https://img.shields.io/badge/DMCA-Protected-brightgreen.svg)](https://www.dmca.com/Takedowns.aspx?r=m)
+[![GitHub license](https://img.shields.io/github/license/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](./LICENSE)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](./README.md)
+
 > Windows 10 Mining Tweaks by [DeadManWalking (DeadManWalkingTO-GitHub)](https://github.com/DeadManWalkingTO)
 
 Windows10MiningTweaksDmW is a script for full optimization on Microsoft Windows 10 Dedicate Mining PC/Server. 
