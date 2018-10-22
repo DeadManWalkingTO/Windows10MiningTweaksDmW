@@ -91,7 +91,7 @@ Monero Address (XMR):
 Aeon Address (AEON):
 * WmssXd9iiPCjjhfVyqYvPzhBuPKkZ5wkVXP5q8L7aYxfPJG5Z8nLyLJXUzxMeuvna9dCEBAmqBzCRWezF6AQqUS51EDJtjAYL
 
-##Common Issues
+## Common Issues
 
-#### Explorer.EXE Unknown Error
+#### Explorer.EXE Unknown Error:
 Issue [#6](../../issues/6) | Status: **Solved**.
