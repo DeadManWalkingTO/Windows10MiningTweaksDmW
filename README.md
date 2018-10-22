@@ -33,7 +33,7 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy
 - [Contribute](#contribute)
 - [License](#license)
 - [Donations](#donations)
-- [Common Issues](#comon-issues)
+- [Common Issues](#common-issues)
 
 ## Features
 1. Registry Tweaks
