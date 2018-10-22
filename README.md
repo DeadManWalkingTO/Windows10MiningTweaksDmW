@@ -33,6 +33,7 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy
 - [Contribute](#contribute)
 - [License](#license)
 - [Donations](#donations)
+- [Common Issues](#comon-issues)
 
 ## Features
 1. Registry Tweaks
@@ -89,3 +90,8 @@ Monero Address (XMR):
 
 Aeon Address (AEON):
 * WmssXd9iiPCjjhfVyqYvPzhBuPKkZ5wkVXP5q8L7aYxfPJG5Z8nLyLJXUzxMeuvna9dCEBAmqBzCRWezF6AQqUS51EDJtjAYL
+
+##Common Issues
+
+#### Explorer.EXE Unknown Error
+Issue [#6](../../issues/6) | Status: **Solved**.
