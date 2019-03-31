@@ -23,6 +23,13 @@ Windows10MiningTweaksDmW is a script for full optimization on Microsoft Windows 
 
 Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy optimizations/rewrites, since version 3.0.0 add more optimizations and achieve additional 30% less system CPU utilization on GPU mining.
 
+- Supported Operating System
+  - Windows 10
+  
+- Supported Architectures:
+  - x86
+  - x64
+
 ## Table of Contents
 - [Features](#features)
 - [Download](#download)
