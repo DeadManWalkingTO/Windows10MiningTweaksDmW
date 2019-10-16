@@ -3,7 +3,7 @@ rem ========== Pre ==========
 rem Don't echo to standard output
 @echo off
 rem Set version info
-set V=5.3.5
+set V=5.3.6
 rem Change colors
 color 1F
 rem Set title
@@ -1051,8 +1051,9 @@ if '%regTweak%' == 'y' set /A Pline=%Pline%+1
 if '%regTweak%' == 'n' set /A Pline=%Pline%+2
 goto %Pline%
 :1070
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg add "HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell\Reboot to Recovery" /v "Icon" /t REG_SZ /d %SystemRoot%\System32\imageres.dll,-110" /f > nul 2>&1
 reg add "HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell\Reboot to Recovery\command" /ve /d "shutdown.exe -r -o -f -t 00" /f > nul 2>&1
 set /A PRun=%PRun%+1
@@ -2517,72 +2518,105 @@ reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\UsersLibraries" /f
 reg delete "HKCU\SOFTWARE\Classes\Local Settings\MuiCache\1\52C64B7E" /v "@C:\Windows\system32\windows.storage.dll,-50691" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Namespace\Windows\UserLibraries" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\WindowsSettingHandlers\UserLibraries" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.NavPaneShowLibraries" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{c51b83e5-9edd-4250-b45a-da672ee3c70e}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{e9711a2f-350f-4ec1-8ebd-21245a8b9376}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{e9711a2f-350f-4ec1-8ebd-21245a8b9376}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{e9711a2f-350f-4ec1-8ebd-21245a8b9376}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{e9711a2f-350f-4ec1-8ebd-21245a8b9376}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\CLSID\{e9711a2f-350f-4ec1-8ebd-21245a8b9376}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF324EC-F905-4c69-851A-DDC8795F71F2}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{51F649D3-4BFF-42f6-A253-6D878BE1651D}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{896664F7-12E1-490f-8782-C0835AFD98FC}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" /f
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+60
@@ -2634,19 +2668,27 @@ reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{3f2a72a7-99fa-4ddb-a5a8-c604edf61d6b}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" /f
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" /f
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+28
@@ -2677,16 +2719,20 @@ reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\StartMenu\StartPanel\PinnedItems\Pictures" /f
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v "CommonPictures" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" /f
 
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{c1f8339f-f312-4c97-b1c6-ecdf5910c5c0}" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{0b2baaeb-0042-4dca-aa4d-3ee8648d03e5}" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{4dcafe13-e6a7-4c28-be02-ca8c2126280d}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{b3690e58-e961-423b-b687-386ebfd83239}" /f
 
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{c1f8339f-f312-4c97-b1c6-ecdf5910c5c0}" /f
@@ -2695,24 +2741,34 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell F
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "CommonPictures" /f
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\CLSID\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" /f
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+41
@@ -2748,20 +2804,24 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "CommonVideo" /f
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{51294DA1-D7B1-485b-9E9A-17CFFE33E187}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" /f
 
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem %SystemRoot%\System32\setaclx64 -on "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg delete "HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" /f
 set /A PRun=%PRun%+1
 set /A PAct=%PAct%+29
@@ -2936,8 +2996,9 @@ if '%regTweak%' == 'y' set /A Pline=%Pline%+1
 if '%regTweak%' == 'n' set /A Pline=%Pline%+2
 goto %Pline%
 :12002
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
-%SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
+rem ext
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" -ot reg -actn setowner -ownr "n:Administrators" -rec yes
+rem %SystemRoot%\System32\setaclx64 -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" -ot reg -actn ace -ace "n:Administrators;p:full" -rec yes
 reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" /v "SpyNetReporting" /t REG_DWORD /d 0 /f > nul 2>&1
 reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" /v "SubmitSamplesConsent" /t REG_DWORD /d 0 /f > nul 2>&1
 set /A PRun=%PRun%+1
