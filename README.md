@@ -44,21 +44,21 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy
 
 ## Features
 1. System BackUp
-  1.1. Registry BackUp 
-  1.2. Services BackUp
+* 1.1. Registry BackUp 
+* 1.2. Services BackUp
 2. System Tweaks
-  2.1. Registry Tweaks
-  2.2. Removing Services
-  2.3. Removing Scheduled Tasks
-  2.4. Removing Windows Default Apps
-  2.5. Disable / Remove OneDrive
-  2.6. Blocking Telemetry Servers
-  2.7. Blocking More Windows Servers
-  2.8. Disable Windows Error Recovery on Startup
-  2.9. Internet Explorer 11 Tweaks
-  2.10. Libraries Tweaks.
-  2.11. Windows Update Tweaks.
-  2.12. Windows Defender Tweaks.
+* 2.1. Registry Tweaks
+* 2.2. Removing Services
+* 2.3. Removing Scheduled Tasks
+* 2.4. Removing Windows Default Apps
+* 2.5. Disable / Remove OneDrive
+* 2.6. Blocking Telemetry Servers
+* 2.7. Blocking More Windows Servers
+* 2.8. Disable Windows Error Recovery on Startup
+* 2.9. Internet Explorer 11 Tweaks
+* 2.10. Libraries Tweaks.
+* 2.11. Windows Update Tweaks.
+* 2.12. Windows Defender Tweaks.
 
 ## Download
 Download [Last release here.](../../releases/latest)
