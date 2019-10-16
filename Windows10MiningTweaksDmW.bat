@@ -3,7 +3,7 @@ rem ========== Pre ==========
 rem Don't echo to standard output
 @echo off
 rem Set version info
-set V=4.2.3
+set V=5.3.4
 rem Change colors
 color 1F
 rem Set title
@@ -23,18 +23,22 @@ echo #                                                                          
 echo #                                                                             #
 echo #  Features                                                                   #
 echo #                                                                             #
-echo #  1. Registry Tweaks                                                         #
-echo #  2. Removing Services                                                       #
-echo #  3. Removing Scheduled Tasks                                                #
-echo #  4. Removing Windows Default Apps                                           #
-echo #  5. Disable / Remove OneDrive                                               #
-echo #  6. Blocking Telemetry Servers                                              #
-echo #  7. Blocking More Windows Servers                                           #
-echo #  8. Disable Windows Error Recovery on Startup                               #
-echo #  9. Internet Explorer 11 Tweaks                                             #
-echo #  10. Libraries Tweaks                                                       #
-echo #  11. Windows Update Tweaks                                                  #
-echo #  12. Windows Defender Tweaks                                                #
+echo #  1. System BackUp                                                           #
+echo #  1.1. Registry BackUp                                                       #
+echo #                                                                             #
+echo #  2. System Tweak                                                            #
+echo #  2.1. Registry Tweaks                                                       #
+echo #  2.2. Removing Services                                                     #
+echo #  2.3. Removing Scheduled Tasks                                              #
+echo #  2.4. Removing Windows Default Apps                                         #
+echo #  2.5. Disable / Remove OneDrive                                             #
+echo #  2.6. Blocking Telemetry Servers                                            #
+echo #  2.7. Blocking More Windows Servers                                         #
+echo #  2.8. Disable Windows Error Recovery on Startup                             #
+echo #  2.9. Internet Explorer 11 Tweaks                                           #
+echo #  2.10. Libraries Tweaks                                                     #
+echo #  2.11. Windows Update Tweaks                                                #
+echo #  2.12. Windows Defender Tweaks                                              #
 echo #                                                                             #
 echo ###############################################################################
 echo.
@@ -76,15 +80,353 @@ if '%1'=='ELEV' (del "%vbsGetPrivileges%" 1>nul 2>nul  &  shift /1)
 
 rem ========== Initializing ==========
 
+setlocal DisableDelayedExpansion
+set "batchPath=%~0"
+for %%k in (%0) do set batchName=%%~nk
+set "vbsServicesBackup=%temp%\DmwServicesBackup_%batchName%.vbs"
+setlocal EnableDelayedExpansion
+
+set "DmwLine= rem By DeadManWalking"
+echo !DmwLine! > %vbsServicesBackup%
+set "DmwLine=Option Explicit"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=If WScript.Arguments.length = 0 Then"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   Dim objShell : Set objShell = CreateObject("Shell.Application")"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   objShell.ShellExecute "wscript.exe", Chr(34) & WScript.ScriptFullName & Chr(34) & " uac", "", "runas", 1"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=Else"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   Dim WshShell, objFSO, strNow, intServiceType, intStartupType, strDisplayName, iSvcCnt"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   Dim sREGFile, sBATFile, r, b, strComputer, objWMIService, colListOfServices, objService"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   Set WshShell = CreateObject("Wscript.Shell")"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   Set objFSO = Wscript.CreateObject("Scripting.FilesystemObject")"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   strNow = Year(Date) & Right("0" & Month(Date), 2) & Right("0" & Day(Date), 2)"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   Dim objFile: Set objFile = objFSO.GetFile(WScript.ScriptFullName)"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   sREGFile = "C:\DmWBackup-Services-" & strNow & ".reg""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   sBATFile = "C:\DmWBackup-Services-" & strNow & ".bat""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   Set r = objFSO.CreateTextFile (sREGFile, True)"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   r.WriteLine "Windows Registry Editor Version 5.00""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   r.WriteBlankLines 1"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   r.WriteLine ";Services Startup Configuration Backup " & Now"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   r.WriteBlankLines 1"
+echo !DmwLine! >> %vbsServicesBackup% 
+set "DmwLine=   Set b = objFSO.CreateTextFile (sBATFile, True)"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   b.WriteLine "@echo Restore Service Startup State saved at " & Now"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   b.WriteBlankLines 1"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   strComputer = ".""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   iSvcCnt=0"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   Dim sStartState, sSvcName, sSkippedSvc"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   Set colListOfServices = objWMIService.ExecQuery ("Select * from Win32_Service")"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   For Each objService In colListOfServices"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=      iSvcCnt=iSvcCnt + 1"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=      r.WriteLine "[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\" & trim(objService.Name) & "]""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=      sStartState = lcase(objService.StartMode)"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=      sSvcName = objService.Name"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=      Select Case sStartState"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         Case "boot""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000000""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         b.WriteLine "sc.exe config " & sSvcName & " start= boot""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         Case "system""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000001""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         b.WriteLine "sc.exe config " & sSvcName & " start= system""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         Case "auto""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000002""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         If objService.DelayedAutoStart = True Then"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=            r.WriteLine chr(34) & "DelayedAutostart" & Chr(34) & "=dword:00000001""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=            b.WriteLine "sc.exe config " & sSvcName & " start= delayed-auto""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         Else"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=            r.WriteLine chr(34) & "DelayedAutostart" & Chr(34) & "=-""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=            b.WriteLine "sc.exe config " & sSvcName & " start= auto""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         End If"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         Case "manual""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000003""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         b.WriteLine "sc.exe config " & sSvcName & " start= demand""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         Case "disabled""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000004""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         b.WriteLine "sc.exe config " & sSvcName & " start= disabled""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=         Case "unknown"	sSkippedSvc = sSkippedSvc & ", " & sSvcName"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=      End Select"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=      r.WriteBlankLines 1"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   Next"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   If trim(sSkippedSvc) <> "" Then"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=      WScript.Echo iSvcCnt & " Services found. The services " & sSkippedSvc & " could not be backed up.""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   Else"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=      WScript.Echo iSvcCnt & " Services found and their startup configuration backed up.""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   End If"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   r.Close"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   b.WriteLine "@pause""
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   b.Close"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   Set objFSO = Nothing"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=   Set WshShell = Nothing"
+echo !DmwLine! >> %vbsServicesBackup%
+set "DmwLine=End If"
+echo !DmwLine! >> %vbsServicesBackup%
+
+set "DmwBackupFilename=C:\DmWBackup"
+set DmwDate=%date:~10,4%%date:~7,2%%date:~4,2%
+
 set PMax=0
 set PRun=0
 set PAct=0
 
-rem ========== 1. Registry Tweaks ==========
+rem ========== 1. System BackUp ==========
 
 echo.
 echo ###############################################################################
-echo #  1. Registry Tweaks  --  Start                                              #
+echo #  1. System BackUp  --  Start                                                #
+echo ###############################################################################
+echo.
+
+rem ========== 1.1. Registry BackUp ==========
+
+echo.
+echo ###############################################################################
+echo #  1.1. Registry BackUp  --  Start                                            #
+echo ###############################################################################
+echo.
+
+:500
+set /A Pline=500
+set PMax=5
+set PRun=0
+rem set PAct=0
+echo Registry BackUp in C:\ (%PMax%).
+set /p Pselect="Continue? y/n/a: "
+if '%Pselect%' == 'y' set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+2
+if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+goto %Pline%
+
+:501
+set myMSG=BackUp HKCR (HKEY_CLASSES_ROOT)
+echo %myMSG%
+set myMSG=Describes file type, file extension, and OLE information.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:502
+reg EXPORT HKCR %DmwBackupFilename%-Reg-HKCR-%DmwDate%.reg /y
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry BackUp. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:503
+set myMSG=BackUp HKCU (HKEY_CURRENT_USER)
+echo %myMSG%
+set myMSG=Contains user who is currently logged into Windows and their settings.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:504
+reg EXPORT HKCU %DmwBackupFilename%-Reg-HKCU-%DmwDate%.reg /y
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry BackUp. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:505
+set myMSG=BackUp HKLM (HKEY_LOCAL_MACHINE)
+echo %myMSG%
+set myMSG=Contains computer-specific information about the hardware installed, software settings, and other information. The information is used for all users who log on to that computer and is one of the more commonly accessed areas in the registry.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:506
+reg EXPORT HKLM %DmwBackupFilename%-Reg-HKLM-%DmwDate%.reg /y
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry BackUp. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:507
+set myMSG=BackUp HKU (HKEY_USERS)
+echo %myMSG%
+set myMSG=Contains information about all the users who log on to the computer, including both generic and user-specific information.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:508
+reg EXPORT HKU %DmwBackupFilename%-Reg-HKU-%DmwDate%.reg /y
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry BackUp. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:509
+set myMSG=BackUp HKCC (HKEY_CURRENT_CONFIG)
+echo %myMSG%
+set myMSG=The details about the current configuration of hardware attached to the computer.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:510
+reg EXPORT HKCC %DmwBackupFilename%-Reg-HKCC-%DmwDate%.reg /y
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry BackUp. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:511
+:512
+
+:599
+echo.
+echo ###############################################################################
+echo #  1.1. Registry BackUp  --  End                                              #
+echo ###############################################################################
+echo.
+
+rem ========== 1.2. Services BackUp ==========
+
+echo.
+echo ###############################################################################
+echo #  1.2. Services BackUp  --  Start                                            #
+echo ###############################################################################
+echo.
+
+:600
+set /A Pline=600
+set PMax=1
+set PRun=0
+rem set PAct=0
+echo Registry BackUp in C:\ (%PMax%).
+set /p Pselect="Continue? y/n/a: "
+if '%Pselect%' == 'y' set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+2
+if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+goto %Pline%
+
+:601
+set myMSG=Queries the list of Windows services and their startup type configuration.
+echo %myMSG%
+set myMSG=The results are written to .reg and .bat files for later restoration. The two files are created in the C:\ folder.
+echo %myMSG%
+set /p regTweak="Continue? y/n: "
+if '%regTweak%' == 'y' set /A Pline=%Pline%+1
+if '%regTweak%' == 'n' set /A Pline=%Pline%+2
+goto %Pline%
+:602
+WScript.exe %vbsServicesBackup%
+set /A PRun=%PRun%+1
+set /A PAct=%PAct%+1
+echo Done %PRun% / %PMax% Registry BackUp. Total Actions %PAct%.
+timeout /T 1 /NOBREAK > nul
+set /A Pline=%Pline%+1
+if '%Pselect%' == 'a' set /A Pline=%Pline%+1
+goto %Pline%
+
+:603
+:604
+
+:649
+echo.
+echo ###############################################################################
+echo #  1.2. Services BackUp  --  End                                              #
+echo ###############################################################################
+echo.
+
+rem ========== 2. System BackUp ==========
+
+echo.
+echo ###############################################################################
+echo #  2. System Tweaks  --  Start                                                #
+echo ###############################################################################
+echo.
+
+rem ========== 2.1. Registry Tweaks ==========
+
+echo.
+echo ###############################################################################
+echo #  2.1. Registry Tweaks  --  Start                                            #
 echo ###############################################################################
 echo.
 
@@ -798,15 +1140,15 @@ goto %Pline%
 :1100
 echo.
 echo ###############################################################################
-echo #  1. Registry Tweaks  --  End                                                #
+echo #  2.1. Registry Tweaks  --  End                                              #
 echo ###############################################################################
 echo.
 
-rem ========== 2. Removing Services ==========
+rem ========== 2.2. Removing Services ==========
 
 echo.
 echo ###############################################################################
-echo #  2. Removing Services  --  Start                                            #
+echo #  2.2. Removing Services  --  Start                                          #
 echo ###############################################################################
 echo.
 
@@ -1476,15 +1818,15 @@ goto %Pline%
 :2100
 echo.
 echo ###############################################################################
-echo #  2. Removing Services  --  End                                              #
+echo #  2.2. Removing Services  --  End                                            #
 echo ###############################################################################
 echo.
 
-rem ========== 3. Removing Scheduled Tasks ==========
+rem ========== 2.3. Removing Scheduled Tasks ==========
 
 echo.
 echo ###############################################################################
-echo #  3. Removing Scheduled Tasks  --  Start                                     #
+echo #  2.3. Removing Scheduled Tasks  --  Start                                   #
 echo ###############################################################################
 echo.
 
@@ -1525,15 +1867,15 @@ timeout /T 1 /NOBREAK > nul
 :3100
 echo.
 echo ###############################################################################
-echo #  3. Removing Scheduled Tasks  --  End                                       #
+echo #  2.3. Removing Scheduled Tasks  --  End                                     #
 echo ###############################################################################
 echo.
 
-rem ========== 4. Removing Windows Default Apps ==========
+rem ========== 2.4. Removing Windows Default Apps ==========
 
 echo.
 echo ###############################################################################
-echo #  4. Removing Windows Default Apps  --  Start                                #
+echo #  2.4. Removing Windows Default Apps  --  Start                              #
 echo ###############################################################################
 echo.
 
@@ -1569,15 +1911,15 @@ timeout /T 1 /NOBREAK > nul
 :4100
 echo.
 echo ###############################################################################
-echo #  4. Removing Windows Default Apps  --  End                                  #
+echo #  2.4. Removing Windows Default Apps  --  End                                #
 echo ###############################################################################
 echo.
 
-rem ========== 5. Disable / Remove OneDrive ==========
+rem ========== 2.5. Disable / Remove OneDrive ==========
 
 echo.
 echo ###############################################################################
-echo #  5. Disable / Remove OneDrive  --  Start                                    #
+echo #  2.5. Disable / Remove OneDrive  --  Start                                  #
 echo ###############################################################################
 echo.
 
@@ -1612,7 +1954,7 @@ timeout /T 1 /NOBREAK > nul
 :5100
 echo.
 echo ###############################################################################
-echo #  5. Disable / Remove OneDrive  --  End                                      #
+echo #  2.5. Disable / Remove OneDrive  --  End                                    #
 echo ###############################################################################
 echo.
 
@@ -1620,7 +1962,7 @@ rem ========== 6. Blocking Telemetry Servers ==========
 
 echo.
 echo ###############################################################################
-echo #  6. Blocking Telemetry Servers  --  Start                                   #
+echo #  2.6. Blocking Telemetry Servers  --  Start                                 #
 echo ###############################################################################
 echo.
 
@@ -1698,15 +2040,15 @@ timeout /T 1 /NOBREAK > nul
 :6100
 echo.
 echo ###############################################################################
-echo #  6. Blocking Telemetry Servers  --  End                                     #
+echo #  2.6. Blocking Telemetry Servers  --  End                                   #
 echo ###############################################################################
 echo.
 
-rem ========== 7. Blocking More Windows Servers ==========
+rem ========== 2.7. Blocking More Windows Servers ==========
 
 echo.
 echo ###############################################################################
-echo #  7. Blocking More Windows Servers  --  Start                                #
+echo #  2.7. Blocking More Windows Servers  --  Start                              #
 echo ###############################################################################
 echo.
 
@@ -1953,15 +2295,15 @@ timeout /T 1 /NOBREAK > nul
 :7100
 echo.
 echo ###############################################################################
-echo #  7. Blocking More Windows Servers  --  End                                  #
+echo #  2.7. Blocking More Windows Servers  --  End                                #
 echo ###############################################################################
 echo.
 
-rem ========== 8. Disable Windows Error Recovery on Startup ==========
+rem ========== 2.8. Disable Windows Error Recovery on Startup ==========
 
 echo.
 echo ###############################################################################
-echo #  8. Disable Windows Error Recovery on Startup   --  Start                   #
+echo #  2.8. Disable Windows Error Recovery on Startup   --  Start                 #
 echo ###############################################################################
 echo.
 
@@ -1988,15 +2330,15 @@ timeout /T 1 /NOBREAK > nul
 :8100
 echo.
 echo ###############################################################################
-echo #  8. Disable Windows Error Recovery on Startup  --  End                      #
+echo #  2.8. Disable Windows Error Recovery on Startup  --  End                    #
 echo ###############################################################################
 echo.
 
-rem ========== 9. Internet Explorer 11 Tweaks ==========
+rem ========== 2.9. Internet Explorer 11 Tweaks ==========
 
 echo.
 echo ###############################################################################
-echo #  9. Internet Explorer 11 Tweaks  --  Start                                  #
+echo #  2.9. Internet Explorer 11 Tweaks  --  Start                                #
 echo ###############################################################################
 echo.
 
@@ -2095,15 +2437,15 @@ goto %Pline%
 :9100
 echo.
 echo ###############################################################################
-echo #  9. Internet Explorer 11 Tweaks  --  End                                    #
+echo #  2.9. Internet Explorer 11 Tweaks  --  End                                  #
 echo ###############################################################################
 echo.
 
-rem ========== 10. Libraries Tweaks ==========
+rem ========== 2.10. Libraries Tweaks ==========
 
 echo.
 echo ###############################################################################
-echo #   10. Libraries Tweaks  --  Start                                           #
+echo #   2.10. Libraries Tweaks  --  Start                                         #
 echo ###############################################################################
 echo.
 
@@ -2455,16 +2797,16 @@ goto %Pline%
 :10100
 echo.
 echo ###############################################################################
-echo #  10. Libraries Tweaks  --  End                                              #
+echo #  2.10. Libraries Tweaks  --  End                                            #
 echo ###############################################################################
 echo.
 
 
-rem ========== 11. Windows Update Tweaks ==========
+rem ========== 2.11. Windows Update Tweaks ==========
 
 echo.
 echo ###############################################################################
-echo #  11. Windows Update Tweaks --  Start                                        #
+echo #  2.11. Windows Update Tweaks --  Start                                      #
 echo ###############################################################################
 echo.
 
@@ -2561,16 +2903,16 @@ goto %Pline%
 :11100
 echo.
 echo ###############################################################################
-echo #  11. Windows Update Tweaks  --  End                                         #
+echo #  2.11. Windows Update Tweaks  --  End                                       #
 echo ###############################################################################
 echo.
 
 
-rem ========== 12. Windows Defender Tweaks ==========
+rem ========== 2.12. Windows Defender Tweaks ==========
 
 echo.
 echo ###############################################################################
-echo #  12. Windows Defender Tweaks --  Start                                      #
+echo #  2.12. Windows Defender Tweaks --  Start                                    #
 echo ###############################################################################
 echo.
 
@@ -2635,7 +2977,7 @@ goto %Pline%
 :12100
 echo.
 echo ###############################################################################
-echo #  12. Windows Defender Tweaks  --  End                                       #
+echo #  2.12. Windows Defender Tweaks  --  End                                     #
 echo ###############################################################################
 echo.
 
