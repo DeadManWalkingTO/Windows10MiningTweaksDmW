@@ -3,7 +3,7 @@ rem ========== Pre ==========
 rem Don't echo to standard output
 @echo off
 rem Set version info
-set V=5.3.4
+set V=5.3.5
 rem Change colors
 color 1F
 rem Set title
@@ -25,6 +25,7 @@ echo #  Features                                                                
 echo #                                                                             #
 echo #  1. System BackUp                                                           #
 echo #  1.1. Registry BackUp                                                       #
+echo #  1.2. Services BackUp                                                       #
 echo #                                                                             #
 echo #  2. System Tweak                                                            #
 echo #  2.1. Registry Tweaks                                                       #
