@@ -43,10 +43,11 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy
 - [Common Issues](#common-issues)
 
 ## Features
-1. System BackUp
+**1. System BackUp**
 * 1.1. Registry BackUp 
 * 1.2. Services BackUp
-2. System Tweaks
+
+**2. System Tweaks**
 * 2.1. Registry Tweaks
 * 2.2. Removing Services
 * 2.3. Removing Scheduled Tasks
