@@ -27,8 +27,9 @@ Originally based on "Windows 10 Registry tweaks for mining" (jsanzsp) with heavy
   - Windows 10
   
 - Supported Architectures:
-  - x86
-  - x64
+  - x86 (32 bit)
+  - x64 (64 bit)
+  - ARM
 
 ## Table of Contents
 - [Features](#features)
