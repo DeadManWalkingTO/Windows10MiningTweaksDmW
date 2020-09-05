@@ -358,8 +358,8 @@ goto %Pline%
 
 :511
 :512
-
 :599
+:600
 echo.
 echo ###############################################################################
 echo #  1.1. Registry BackUp  --  End                                              #
@@ -374,12 +374,12 @@ echo #  1.2. Services BackUp  --  Start                                         
 echo ###############################################################################
 echo.
 
-:600
+
 set /A Pline=600
 set PMax=1
 set PRun=0
 rem set PAct=0
-echo Registry BackUp in C:\ (%PMax%).
+echo Services BackUp in C:\ (%PMax%).
 set /p Pselect="Continue? y/n/a: "
 if '%Pselect%' == 'y' set /A Pline=%Pline%+1
 if '%Pselect%' == 'a' set /A Pline=%Pline%+2
@@ -407,8 +407,8 @@ goto %Pline%
 
 :603
 :604
-
 :649
+:700
 echo.
 echo ###############################################################################
 echo #  1.2. Services BackUp  --  End                                              #
