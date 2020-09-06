@@ -81,150 +81,103 @@ if '%1'=='ELEV' (del "%vbsGetPrivileges%" 1>nul 2>nul  &  shift /1)
 
 rem ========== Initializing ==========
 
+rem Creating temp vbs for Services Backup
 setlocal DisableDelayedExpansion
 set "batchPath=%~0"
 for %%k in (%0) do set batchName=%%~nk
 set "vbsServicesBackup=%temp%\DmwServicesBackup_%batchName%.vbs"
 setlocal EnableDelayedExpansion
 
-set "DmwLine= rem By DeadManWalking"
-echo !DmwLine! > %vbsServicesBackup%
-set "DmwLine=Option Explicit"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=If WScript.Arguments.length = 0 Then"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   Dim objShell : Set objShell = CreateObject("Shell.Application")"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   objShell.ShellExecute "wscript.exe", Chr(34) & WScript.ScriptFullName & Chr(34) & " uac", "", "runas", 1"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=Else"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   Dim WshShell, objFSO, strNow, intServiceType, intStartupType, strDisplayName, iSvcCnt"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   Dim sREGFile, sBATFile, r, b, strComputer, objWMIService, colListOfServices, objService"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   Set WshShell = CreateObject("Wscript.Shell")"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   Set objFSO = Wscript.CreateObject("Scripting.FilesystemObject")"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   strNow = Year(Date) & Right("0" & Month(Date), 2) & Right("0" & Day(Date), 2)"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   Dim objFile: Set objFile = objFSO.GetFile(WScript.ScriptFullName)"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   sREGFile = "C:\DmWBackup-Services-" & strNow & ".reg""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   sBATFile = "C:\DmWBackup-Services-" & strNow & ".bat""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   Set r = objFSO.CreateTextFile (sREGFile, True)"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   r.WriteLine "Windows Registry Editor Version 5.00""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   r.WriteBlankLines 1"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   r.WriteLine ";Services Startup Configuration Backup " & Now"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   r.WriteBlankLines 1"
-echo !DmwLine! >> %vbsServicesBackup% 
-set "DmwLine=   Set b = objFSO.CreateTextFile (sBATFile, True)"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   b.WriteLine "@echo Restore Service Startup State saved at " & Now"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   b.WriteBlankLines 1"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   strComputer = ".""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   iSvcCnt=0"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   Dim sStartState, sSvcName, sSkippedSvc"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   Set colListOfServices = objWMIService.ExecQuery ("Select * from Win32_Service")"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   For Each objService In colListOfServices"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=      iSvcCnt=iSvcCnt + 1"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=      r.WriteLine "[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\" & trim(objService.Name) & "]""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=      sStartState = lcase(objService.StartMode)"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=      sSvcName = objService.Name"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=      Select Case sStartState"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         Case "boot""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000000""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         b.WriteLine "sc.exe config " & sSvcName & " start= boot""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         Case "system""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000001""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         b.WriteLine "sc.exe config " & sSvcName & " start= system""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         Case "auto""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000002""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         If objService.DelayedAutoStart = True Then"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=            r.WriteLine chr(34) & "DelayedAutostart" & Chr(34) & "=dword:00000001""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=            b.WriteLine "sc.exe config " & sSvcName & " start= delayed-auto""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         Else"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=            r.WriteLine chr(34) & "DelayedAutostart" & Chr(34) & "=-""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=            b.WriteLine "sc.exe config " & sSvcName & " start= auto""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         End If"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         Case "manual""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000003""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         b.WriteLine "sc.exe config " & sSvcName & " start= demand""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         Case "disabled""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000004""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         b.WriteLine "sc.exe config " & sSvcName & " start= disabled""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=         Case "unknown"	sSkippedSvc = sSkippedSvc & ", " & sSvcName"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=      End Select"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=      r.WriteBlankLines 1"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   Next"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   If trim(sSkippedSvc) <> "" Then"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=      WScript.Echo iSvcCnt & " Services found. The services " & sSkippedSvc & " could not be backed up.""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   Else"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=      WScript.Echo iSvcCnt & " Services found and their startup configuration backed up.""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   End If"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   r.Close"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   b.WriteLine "@pause""
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   b.Close"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   Set objFSO = Nothing"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=   Set WshShell = Nothing"
-echo !DmwLine! >> %vbsServicesBackup%
-set "DmwLine=End If"
-echo !DmwLine! >> %vbsServicesBackup%
+rem Create LF line feed character
+set ^"LF=^
+%= This creates a Line Feed character =%
+^"
+
+rem Create CR contain a carriage return character
+for /f %%A in ('copy /Z "%~dpf0" nul') do set "CR=%%A"
+
+rem Define a new line string
+set "NL=!CR!!LF!
+
+rem Final defined breakline
+set "BRKL=!NL!#"
+
+rem Anidate command
+set "ANID=Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")"
+
+set "stringVbs= rem By DeadManWalking !BRKL!"^
+ "Option Explicit !BRKL!"^
+ "If WScript.Arguments.length = 0 Then !BRKL!"^
+ "   Dim objShell : Set objShell = CreateObject("Shell.Application") !BRKL!"^
+ "   objShell.ShellExecute "wscript.exe", Chr(34) & WScript.ScriptFullName & Chr(34) & " uac", "", "runas", 1 !BRKL!"^
+ "Else !BRKL!"^
+ "   Dim WshShell, objFSO, strNow, intServiceType, intStartupType, strDisplayName, iSvcCnt !BRKL!"^
+ "   Dim sREGFile, sBATFile, r, b, strComputer, objWMIService, colListOfServices, objService !BRKL!"^
+ "   Set WshShell = CreateObject("Wscript.Shell") !BRKL!"^
+ "   Set objFSO = Wscript.CreateObject("Scripting.FilesystemObject") !BRKL!"^
+ "   strNow = Year(Date) & Right("0" & Month(Date), 2) & Right("0" & Day(Date), 2) !BRKL!"^
+ "   Dim objFile: Set objFile = objFSO.GetFile(WScript.ScriptFullName) !BRKL!"^
+ "   sREGFile = "C:\DmWBackup-Services-" & strNow & ".reg" !BRKL!"^
+ "   sBATFile = "C:\DmWBackup-Services-" & strNow & ".bat" !BRKL!"^
+ "   Set r = objFSO.CreateTextFile (sREGFile, True) !BRKL!"^
+ "   r.WriteLine "Windows Registry Editor Version 5.00" !BRKL!"^
+ "   r.WriteBlankLines 1 !BRKL!"^
+ "   r.WriteLine ";Services Startup Configuration Backup " & Now !BRKL!"^
+ "   r.WriteBlankLines 1 !BRKL!"^
+ "   Set b = objFSO.CreateTextFile (sBATFile, True) !BRKL!"^
+ "   b.WriteLine "@echo Restore Service Startup State saved at " & Now !BRKL!"^
+ "   b.WriteBlankLines 1 !BRKL!"^
+ "   strComputer = "." !BRKL!"^
+ "   iSvcCnt=0 !BRKL!"^
+ "   Dim sStartState, sSvcName, sSkippedSvc !BRKL!"^
+ "   !ANID! !BRKL!"^
+ "   Set colListOfServices = objWMIService.ExecQuery ("Select * from Win32_Service") !BRKL!"^
+ "   For Each objService In colListOfServices !BRKL!"^
+ "      iSvcCnt=iSvcCnt + 1 !BRKL!"^
+ "      r.WriteLine "[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\" & trim(objService.Name) & "]" !BRKL!"^
+ "      sStartState = lcase(objService.StartMode) !BRKL!"^
+ "      sSvcName = objService.Name !BRKL!"^
+ "      Select Case sStartState !BRKL!"^
+ "         Case "boot" !BRKL!"^
+ "         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000000" !BRKL!"^
+ "         b.WriteLine "sc.exe config " & sSvcName & " start= boot" !BRKL!"^
+ "         Case "system" !BRKL!"^
+ "         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000001" !BRKL!"^
+ "         b.WriteLine "sc.exe config " & sSvcName & " start= system" !BRKL!"^
+ "         Case "auto" !BRKL!"^
+ "         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000002" !BRKL!"^
+ "         If objService.DelayedAutoStart = True Then !BRKL!"^
+ "            r.WriteLine chr(34) & "DelayedAutostart" & Chr(34) & "=dword:00000001" !BRKL!"^
+ "            b.WriteLine "sc.exe config " & sSvcName & " start= delayed-auto" !BRKL!"^
+ "         Else !BRKL!"^
+ "            r.WriteLine chr(34) & "DelayedAutostart" & Chr(34) & "=-" !BRKL!"^
+ "            b.WriteLine "sc.exe config " & sSvcName & " start= auto" !BRKL!"^
+ "         End If !BRKL!"^
+ "         Case "manual" !BRKL!"^
+ "         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000003" !BRKL!"^
+ "         b.WriteLine "sc.exe config " & sSvcName & " start= demand" !BRKL!"^
+ "         Case "disabled" !BRKL!"^
+ "         r.WriteLine chr(34) & "Start" & Chr(34) & "=dword:00000004" !BRKL!"^
+ "         b.WriteLine "sc.exe config " & sSvcName & " start= disabled" !BRKL!"^
+ "         Case "unknown"	sSkippedSvc = sSkippedSvc & ", " & sSvcName !BRKL!"^
+ "      End Select !BRKL!"^
+ "      r.WriteBlankLines 1 !BRKL!"^
+ "   Next !BRKL!"^
+ "   If trim(sSkippedSvc) <> "" Then !BRKL!"^
+ "      WScript.Echo iSvcCnt & " Services found. The services " & sSkippedSvc & " could not be backed up." !BRKL!"^
+ "   Else !BRKL!"^
+ "      WScript.Echo iSvcCnt & " Services found and their startup configuration backed up." !BRKL!"^
+ "   End If !BRKL!"^
+ "   r.Close !BRKL!"^
+ "   b.WriteLine "@pause" !BRKL!"^
+ "   b.Close !BRKL!"^
+ "   Set objFSO = Nothing !BRKL!"^
+ "   Set WshShell = Nothing !BRKL!"^
+ "End If"
+
+rem Remove unwanted characters
+set "stringVbs=!stringVbs:#" "=!"
+echo !stringVbs! > %vbsServicesBackup%
 
 set "DmwBackupFilename=C:\DmWBackup"
 set DmwDate=%date:~10,4%%date:~7,2%%date:~4,2%
@@ -383,7 +336,10 @@ echo Services BackUp in C:\ (%PMax%).
 set /p Pselect="Continue? y/n/a: "
 if '%Pselect%' == 'y' set /A Pline=%Pline%+1
 if '%Pselect%' == 'a' set /A Pline=%Pline%+2
-if '%Pselect%' == 'n' set /A Pline=%Pline%+100
+if '%Pselect%' == 'n' ( 
+	del %vbsServicesBackup%
+	set /A Pline=%Pline%+100 
+)
 goto %Pline%
 
 :601
