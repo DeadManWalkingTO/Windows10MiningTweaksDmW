@@ -1,5 +1,5 @@
 # Windows10MiningTweaksDmW
-[![HitCount](http://hits.dwyl.io/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../)
+[![Hits](https://hits.sh/github.com/DeadManWalkingTO/Windows10MiningTweaksDmW.svg?style=plastic&label=HitCount)](../../)
 [![GitHub release](https://img.shields.io/github/release/DeadManWalkingTO/Windows10MiningTweaksDmW/all.svg)](../../releases/latest)
 [![GitHub Release Date](https://img.shields.io/github/release-date-pre/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../releases/latest)
 [![GitHub top language](https://img.shields.io/github/languages/top/DeadManWalkingTO/Windows10MiningTweaksDmW.svg)](../../)
