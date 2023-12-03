@@ -93,7 +93,7 @@ Feel free to open an [Issue](../../issues/new) or submit [Pull Requests](../../p
 If you find this usefull please donate something at the following:
 
 Bitcoin Address (BTC):
-* 15G2BTErGg3i8zTmLfKYStUKtqDLXz6Jc9
+* bc1qcsh3zxlrmfmeyz38j7uzk8z2g2qtuctdtttttp
 
 Ethereum Address (ETH):
 * 0x0a42cE58f6f42516d8cc7B1831d01d4391F59Ef4
